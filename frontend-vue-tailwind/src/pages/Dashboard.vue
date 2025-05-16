@@ -1,9 +1,7 @@
 <template>
   <NavBar />
   <SearchBar />
-  <nav>
-    <router-link to="/auth/login">Login</router-link>
-  </nav>
+  <!-- <router-link to="/auth/login">Login</router-link> -->
   <CollectionsStatsRight />
   <Footer />
 </template>
