@@ -12,9 +12,6 @@ jobs:
       matrix:
         service:
           - auth-service
-          - user-service
-          - frontend-vue-tailwind
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
