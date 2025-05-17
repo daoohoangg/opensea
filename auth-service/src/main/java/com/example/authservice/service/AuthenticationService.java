@@ -36,12 +36,18 @@ import java.util.Date;
 public class AuthenticationService {
     AccountRepository accountRepository;
     @NonFinal
-    @Value("${jwt.secret}")
+    @Value("${jwt.signerKey}")
     protected String SIGNER_KEY;
 
     @NonFinal
     @Value("${jwt.valid-duration}")
     protected long VALID_DURATION;
+
+    @NonFinal
+    @Value("${jwt.refreshable-duration}")
+    protected long REFRESHABLE_DURATION;
+
+//kiem tra password co trung nhau khong
     public AuthenticationResponse authenticate(AuthenticationRequest request){
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         var user = accountRepository
@@ -56,6 +62,7 @@ public class AuthenticationService {
 
         return AuthenticationResponse.builder().token(token).build();
     }
+//    tao token jwt
     private String generateToken(Account user){
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
@@ -81,6 +88,7 @@ public class AuthenticationService {
             throw new RuntimeException(e);
         }
     }
+//    kiem tra tokken jwt
     public IntrospectResponse introspect(IntrospectRequest introspectRequest) throws JOSEException, ParseException {
         var token = introspectRequest.getToken();
         //xac nhan khoa cua token

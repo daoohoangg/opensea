@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -23,8 +24,11 @@ import java.text.ParseException;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthenticationController {
+
     AuthenticationService authenticationService;
+
     AccountService accountService;
+
     @PostMapping("/log-in")
     ApiResponse<AuthenticationResponse>authenticationLogin(@RequestBody AuthenticationRequest authenticationRequest){
         var result = authenticationService.authenticate(authenticationRequest);
