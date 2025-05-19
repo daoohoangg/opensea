@@ -105,7 +105,7 @@
           <div class="space-y-2">
             <div class="flex items-center justify-between hover:bg-gray-700 p-2 rounded">
               <div class="flex items-center space-x-2">
-                <img src="..." class="w-6 h-6 rounded-full" />
+                <img class="w-6 h-6 rounded-full" />
                 <div>
                   <p class="text-white text-sm font-semibold">Nobody Sausage</p>
                   <p class="text-gray-400 text-xs">NOBODY</p>
