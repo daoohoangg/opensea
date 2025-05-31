@@ -2,6 +2,7 @@ package com.example.authservice.service;
 
 import com.example.authservice.dto.request.AccountCreationRequest;
 import com.example.authservice.dto.request.AccountUpdateRequest;
+import com.example.authservice.dto.request.RegisterMetamaskRequest;
 import com.example.authservice.dto.response.AccountResponse;
 import com.example.authservice.entity.Account;
 import com.example.authservice.entity.Role;
@@ -44,7 +45,17 @@ public class AccountService {
         //thieu profile mapper
         return accountMapper.toAccountResponse(account);
     }
+    public AccountResponse createAccountByMetamask(RegisterMetamaskRequest registerMetamaskRequest){
+        if(accountRepository.existsByUsername(registerMetamaskRequest.getAddress())) throw new AppException(ErrorCode.USER_EXISTED);// login luon = vi
+        Account account = new Account();
+        account.setWalletAddress(registerMetamaskRequest.getAddress());
+        HashSet<Role> roles = new HashSet<>();
+        account.setRoles(roles);
 
+        account = accountRepository.save(account);
+        //thieu profile mapper
+        return accountMapper.toAccountResponse(account);
+    }
 //    xem thong tin tai khoan
     public AccountResponse getMyInfo() {
         var context = SecurityContextHolder.getContext();

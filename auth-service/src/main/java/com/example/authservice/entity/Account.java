@@ -22,7 +22,7 @@ public class Account {
 
     String username;
     String password;
-
+    String walletAddress;
     @ManyToMany
     Set<Role> roles;
 }

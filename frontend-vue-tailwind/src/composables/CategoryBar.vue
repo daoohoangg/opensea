@@ -1,7 +1,7 @@
 <template>
-  <div class="flex items-center justify-between bg-[#121212] p-4 rounded-md text-white">
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between bg-[#121212] p-4 text-white gap-4">
     <!-- Category Filters -->
-    <div class="flex gap-2 flex-wrap">
+    <div class="flex gap-2 flex-wrap md:ml-56 justify-center">
       <button
         v-for="category in categories"
         :key="category"
@@ -18,7 +18,7 @@
     </div>
 
     <!-- Icon Filters -->
-    <div class="flex gap-2 items-center">
+    <div class="flex gap-2 items-center justify-center">
       <button
         v-for="(icon, index) in iconFilters"
         :key="index"
@@ -51,7 +51,7 @@ const iconFilters = [
   '#A855F7', // purple
 ]
 
-const selectedCategory = ref('Photography')
+const selectedCategory = ref('All')
 const selectedIcon = ref(null)
 
 function selectCategory(category) {

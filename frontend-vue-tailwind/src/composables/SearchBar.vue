@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-[#131313] h-15">
+  <div class="bg-[#131313] h-18 flex items-center">
     <!-- Ô search -->
     <div
       ref="searchBoxRef"
-      class="flex items-center bg-[#131313] border border-gray-600 rounded-md px-5 py-3 w-80 ml-50"
+      class="flex items-center bg-[#131313] border border-gray-600 rounded-md px-5 py-3 w-80 ml-60"
       @click="showPopup = true"
       
     >
@@ -121,11 +121,23 @@
       </div>
     </div>
     </Transition>
+    <div class="flex flex-col justify-end items-end  ">
+      <h2 class=" text-white text-lg font-semibold">Login</h2>
+      <div class="register-container">
+        <h2>/Sign Up</h2>
+        <button @click="registerWithMetaMask">Kết nối & Đăng ký</button>
+        <p v-if="statusMessage">{{ statusMessage }}</p>
+      </div>
+    </div>
   </div>
+  
 </template>
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ethers } from 'ethers'
+import axios from 'axios'
+
 
 const showPopup = ref(false)
 const popupRef = ref(null)
@@ -152,5 +164,59 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener('click', handleClickOutside)
 })
+
+
+const statusMessage = ref('')
+
+async function registerWithMetaMask() {
+  if (!window.ethereum) {
+    statusMessage.value = 'Vui lòng cài đặt MetaMask'
+    return
+  }
+
+  try {
+    // 1. Yêu cầu kết nối ví
+    const [address] = await window.ethereum.request({ method: 'eth_requestAccounts' })
+
+    // 2. Tạo thông điệp để ký
+    const message = `Đăng ký tại DApp lúc ${new Date().toISOString()}`
+
+    // 3. Dùng Ethers.js để ký
+    const provider = new ethers.BrowserProvider(window.ethereum)
+    const signer = await provider.getSigner()
+    const signature = await signer.signMessage(message)
+
+    // 4. Gửi đến backend
+    const response = await axios.post('http://localhost:8080/auth/register', {
+      address,
+      message,
+      signature
+    })
+
+    statusMessage.value = response.data
+
+  } catch (err) {
+    console.error(err)
+    statusMessage.value = 'Đăng ký thất bại: ' + (err?.response?.data || err.message)
+  }
+}
 </script>
 
+<style scoped>
+.register-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  text-align: center;
+}
+button {
+  padding: 0.5rem 1rem;
+  background-color: #f6851b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+</style>

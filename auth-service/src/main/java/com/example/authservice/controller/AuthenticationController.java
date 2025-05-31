@@ -3,6 +3,7 @@ package com.example.authservice.controller;
 import com.example.authservice.dto.request.AccountCreationRequest;
 import com.example.authservice.dto.request.AuthenticationRequest;
 import com.example.authservice.dto.request.IntrospectRequest;
+import com.example.authservice.dto.request.RegisterMetamaskRequest;
 import com.example.authservice.dto.response.AccountResponse;
 import com.example.authservice.dto.response.ApiResponse;
 import com.example.authservice.dto.response.AuthenticationResponse;
@@ -48,6 +49,12 @@ public class AuthenticationController {
     ApiResponse<AccountResponse> createUser(@RequestBody @Valid AccountCreationRequest request) {
         return ApiResponse.<AccountResponse>builder()
                 .result(accountService.createAccount(request))
+                .build();
+    }
+    @PostMapping("/registrationbymetamask")
+    ApiResponse<AccountResponse> creatUser(@RequestBody @Valid RegisterMetamaskRequest request){
+        return ApiResponse.builder()
+                .result(accountService.createAccountByMetamask(request))
                 .build();
     }
 }

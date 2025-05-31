@@ -1,8 +1,8 @@
 <template>
   <div class="flex justify-end h-screen">
-    <div class="relative bg-[#131313] p-4 w-full max-w-md text-white">
+    <div class=" bg-[#131313] p-4 w-full max-w-md text-white">
       <!-- Header -->
-      <div class="flex items-start justify-between mb-4">
+      <div class="flex items-start justify-between">
         <div class="flex space-x-2">
           <button class="bg-[#2A2A2A] text-white text-s px-2 py-1 rounded font-medium">Top</button>
           <button class="text-gray-400 text-s px-2 py-1 rounded hover:bg-[#2A2A2A]">Trending</button>
@@ -49,7 +49,7 @@
       </div>
 
       <!-- Table header -->
-      <div class="grid grid-cols-3 text-gray-400 text-xs mb-2 px-2">
+      <div class="grid grid-cols-3 text-gray-400 text-xs mb-2 px-2 mt-2">
         <div>COLLECTION</div>
         <div class="text-center">FLOOR</div>
         <div class="text-right">CHANGE</div>

@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Login from '@/pages/Login.vue';
 import Dashboard from '@/pages/Dashboard.vue';
-import AuthLayout from '@/layouts/AuthLayout.vue';
+import AuthLayout from '@/components/auth-modal/AuthModalComponent.vue'; 
+
 
 const routes = [
   {
@@ -13,7 +14,7 @@ const routes = [
     component: AuthLayout,
     children: [
       {
-        path: 'login', // => /auth/login
+        path: '/login', // => /auth/login
         component: Login
       }
     ]
@@ -22,7 +23,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 });
 
 export default router;
