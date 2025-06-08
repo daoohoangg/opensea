@@ -12,11 +12,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 @Configuration
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
-public class ApplicationConfig {
-
+public class ApplicationConfig implements WebMvcConfigurer {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/auth/**") // hoặc "/*" nếu bạn dùng nhiều endpoint
+                .allowedOrigins("http://localhost:5173") // port frontend
+                .allowedMethods("*")
+                .allowedHeaders("*");
+    }
 
 }

@@ -63,7 +63,7 @@ public class AuthenticationService {
         return AuthenticationResponse.builder().token(token).build();
     }
 //    tao token jwt
-    private String generateToken(Account user){
+    public String generateToken(Account user){
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
@@ -88,7 +88,7 @@ public class AuthenticationService {
             throw new RuntimeException(e);
         }
     }
-//    kiem tra tokken jwt
+//    kiem tra token jwt
     public IntrospectResponse introspect(IntrospectRequest introspectRequest) throws JOSEException, ParseException {
         var token = introspectRequest.getToken();
         //xac nhan khoa cua token

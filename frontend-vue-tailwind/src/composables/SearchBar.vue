@@ -121,13 +121,14 @@
       </div>
     </div>
     </Transition>
-    <div class="flex flex-col justify-end items-end  ">
-      <h2 class=" text-white text-lg font-semibold">Login</h2>
-      <div class="register-container">
-        <h2>/Sign Up</h2>
-        <button @click="registerWithMetaMask">Kết nối & Đăng ký</button>
-        <p v-if="statusMessage">{{ statusMessage }}</p>
+    <div class="flex flex-col justify-end items-end ">
+      <div
+      @click="showSignup = true"
+      class="cursor-pointer text-white text-lg font-semibold"
+      > Login 
       </div>
+      <!-- khung dang ky tai khoan -->
+      <PopUpAccount v-if="showSignup" @close="showSignup = false"/>
     </div>
   </div>
   
@@ -135,28 +136,16 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
-import { ethers } from 'ethers'
-import axios from 'axios'
+import PopUpAccount from './loginmethods/PopUpAccount.vue'
 
-
+//khung search
 const showPopup = ref(false)
 const popupRef = ref(null)
 const searchBoxRef = ref(null)
-
-function handleClickOutside(event) {
-  const popup = popupRef.value
-  const searchBox = searchBoxRef.value
-
-  if (
-    popup &&
-    !popup.contains(event.target) &&
-    searchBox &&
-    !searchBox.contains(event.target)
-  ) {
-    showPopup.value = false
-  }
-}
-
+// khung dang ky tai khoan
+const showSignup = ref(false)
+const popupRef1 = ref(null)
+const searchBoxRef1 = ref(null)
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
 })
@@ -165,58 +154,28 @@ onBeforeUnmount(() => {
   document.removeEventListener('click', handleClickOutside)
 })
 
+function handleClickOutside(event) {
+  const popup = popupRef.value
+  const searchBox = searchBoxRef.value
 
-const statusMessage = ref('')
-
-async function registerWithMetaMask() {
-  if (!window.ethereum) {
-    statusMessage.value = 'Vui lòng cài đặt MetaMask'
-    return
+  const popup1 = popupRef1.value
+  const searchBox1 = searchBoxRef1.value
+  if (
+    popup &&
+    !popup.contains(event.target) &&
+    searchBox &&
+    !searchBox.contains(event.target)
+  ) {
+    showPopup.value = false
   }
-
-  try {
-    // 1. Yêu cầu kết nối ví
-    const [address] = await window.ethereum.request({ method: 'eth_requestAccounts' })
-
-    // 2. Tạo thông điệp để ký
-    const message = `Đăng ký tại DApp lúc ${new Date().toISOString()}`
-
-    // 3. Dùng Ethers.js để ký
-    const provider = new ethers.BrowserProvider(window.ethereum)
-    const signer = await provider.getSigner()
-    const signature = await signer.signMessage(message)
-
-    // 4. Gửi đến backend
-    const response = await axios.post('http://localhost:8080/auth/register', {
-      address,
-      message,
-      signature
-    })
-
-    statusMessage.value = response.data
-
-  } catch (err) {
-    console.error(err)
-    statusMessage.value = 'Đăng ký thất bại: ' + (err?.response?.data || err.message)
+  if (
+    popup1 &&
+    !popup1.contains(event.target) &&
+    searchBox1 &&
+    !searchBox1.contains(event.target)
+  ) {
+    showSignup.value = false
   }
 }
 </script>
 
-<style scoped>
-.register-container {
-  max-width: 400px;
-  margin: auto;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  text-align: center;
-}
-button {
-  padding: 0.5rem 1rem;
-  background-color: #f6851b;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-</style>

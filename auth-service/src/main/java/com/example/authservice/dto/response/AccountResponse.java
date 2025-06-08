@@ -13,4 +13,5 @@ public class AccountResponse {
     String id;
     String username;
     Set<RoleResponse> roles;
+    String address;
 }

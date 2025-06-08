@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -52,9 +53,17 @@ public class AuthenticationController {
                 .build();
     }
     @PostMapping("/registrationbymetamask")
-    ApiResponse<AccountResponse> creatUser(@RequestBody @Valid RegisterMetamaskRequest request){
-        return ApiResponse.builder()
-                .result(accountService.createAccountByMetamask(request))
+    ApiResponse<AuthenticationResponse> creatUser(@RequestBody @Valid RegisterMetamaskRequest request){
+        AuthenticationResponse result = accountService.createAccountByMetamask(request);
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(result)
+                .build();
+    }
+    @PostMapping("/registrationbygmail")
+    ApiResponse<AuthenticationResponse> creatUser(@RequestBody @Valid Map<String, String> payload){
+        AuthenticationResponse result = accountService.createAccountByGmail(payload);
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(result)
                 .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.example.authservice.mapper;
 import com.example.authservice.dto.request.AccountCreationRequest;
 import com.example.authservice.dto.request.AccountUpdateRequest;
+import com.example.authservice.dto.request.RegisterMetamaskRequest;
 import com.example.authservice.dto.response.AccountResponse;
 import com.example.authservice.entity.Account;
 import org.mapstruct.Mapper;
@@ -11,6 +12,7 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface AccountMapper {
     Account toAccount(AccountCreationRequest request);
+    Account toAccount(RegisterMetamaskRequest request);
     AccountResponse toAccountResponse(Account account);
 
     @Mapping(target = "roles", ignore = true)

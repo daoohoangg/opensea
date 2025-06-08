@@ -23,6 +23,7 @@ public class Account {
     String username;
     String password;
     String walletAddress;
+    String email;
     @ManyToMany
     Set<Role> roles;
 }
