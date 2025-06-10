@@ -1,9 +1,6 @@
 package com.example.authservice.controller;
 
-import com.example.authservice.dto.request.AccountCreationRequest;
-import com.example.authservice.dto.request.AuthenticationRequest;
-import com.example.authservice.dto.request.IntrospectRequest;
-import com.example.authservice.dto.request.RegisterMetamaskRequest;
+import com.example.authservice.dto.request.*;
 import com.example.authservice.dto.response.AccountResponse;
 import com.example.authservice.dto.response.ApiResponse;
 import com.example.authservice.dto.response.AuthenticationResponse;
@@ -62,6 +59,13 @@ public class AuthenticationController {
     @PostMapping("/registrationbygmail")
     ApiResponse<AuthenticationResponse> creatUser(@RequestBody @Valid Map<String, String> payload){
         AuthenticationResponse result = accountService.createAccountByGmail(payload);
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(result)
+                .build();
+    }
+    @PostMapping("/registrationbywallet")
+    ApiResponse<AuthenticationResponse> creatUser(@RequestBody WalletConnectRequest walletConnectRequest){
+        AuthenticationResponse result = accountService.connectWalletMobile(walletConnectRequest);
         return ApiResponse.<AuthenticationResponse>builder()
                 .result(result)
                 .build();

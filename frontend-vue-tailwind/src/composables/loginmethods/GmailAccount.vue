@@ -6,7 +6,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import { loadGoogleIdentityScript } from '../apithirdparty/useGoogleScript.js'
+import { loadGoogleIdentityScript } from '../../services/useGoogleScript.js'
 
 
 const statusMessage = ref('')

@@ -1,8 +1,6 @@
 <template>
-    <div>
-        <button @click="registerWithMetaMask">Metamask</button>
-        <p v-if="statusMessage">{{ statusMessage }}</p>
-    </div>
+  <button @click="registerWithMetaMask" class="w-100">Countinue with Metamask</button>
+  <p v-if="statusMessage">{{ statusMessage }}</p>
 </template>
 <script setup>
 import { ethers } from 'ethers'
@@ -66,16 +64,16 @@ async function registerWithMetaMask() {
   max-width: 400px;
   margin: auto;
   padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 12px;
+  border: 0.2px solid #dcdcdc;
+  border-radius: 2px;
   text-align: center;
 }
 button {
   padding: 0.5rem 1rem;
-  background-color: #f6851b;
+  background-color: #661800;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
 }
 </style>

@@ -3,6 +3,7 @@ package com.example.authservice.service;
 import com.example.authservice.dto.request.AccountCreationRequest;
 import com.example.authservice.dto.request.AccountUpdateRequest;
 import com.example.authservice.dto.request.RegisterMetamaskRequest;
+import com.example.authservice.dto.request.WalletConnectRequest;
 import com.example.authservice.dto.response.AccountResponse;
 import com.example.authservice.dto.response.AuthenticationResponse;
 import com.example.authservice.entity.Account;
@@ -40,6 +41,7 @@ public class AccountService {
     //    ProfileClient profileClient;
     AccountMapper accountMapper;
     AuthenticationService authenticationService;
+    VerifyServices verifyServices;
 
     private final String GOOGLE_CLIENT_ID = "10942482793-kuln1t6m8band0acdojiudnelr00h0ta.apps.googleusercontent.com";
     PasswordEncoder passwordEncoderBCrypt = new BCryptPasswordEncoder(10);
@@ -70,6 +72,7 @@ public class AccountService {
             // login luon = vi
             //can generate JWT o buoc nay de luu thong tin dang nhap
         }
+
         var token = authenticationService.generateToken(account);
         //thieu profile mapper
 //        return accountMapper.toAccountResponse(account);
@@ -117,7 +120,38 @@ public class AccountService {
         return AuthenticationResponse.builder().token(token).build();
     }
 
+    /**
+     * Handles login or registration via WalletConnect (mobile wallet login).
+     * <p>
+     * This method verifies the signature provided by the user (signed with their wallet),
+     * and either finds an existing account by wallet address or creates a new one.
+     * It then generates a JWT token for authentication.
+     * </p>
+     *
+     * @param walletConnectRequest the request containing wallet address, signed message, and original message
+     * @return an {@link AuthenticationResponse} containing the JWT token for the authenticated session
+     *
+     * @throws AppException if the wallet signature is invalid (i.e. address does not match the signature)
+     */
+    public AuthenticationResponse connectWalletMobile(WalletConnectRequest walletConnectRequest){
+        boolean isValid = verifyServices.verify(walletConnectRequest.getAddress(), walletConnectRequest.getSignature(), walletConnectRequest.getMessage());
+        if(!isValid){
+            throw new AppException(ErrorCode.INVALID_KEY);
+        }
+        Account account = accountRepository.findByWallet(walletConnectRequest.getAddress());
+        if (account == null) {
+            account = accountMapper.toAccount(walletConnectRequest);
+            account.setWalletAddress(walletConnectRequest.getAddress());
+            HashSet<Role> roles = new HashSet<>();
+            account.setRoles(roles);
 
+            account = accountRepository.save(account);
+        }
+
+        var token = authenticationService.generateToken(account);
+
+        return AuthenticationResponse.builder().token(token).build();
+    }
     //    xem thong tin tai khoan
     public AccountResponse getMyInfo() {
         var context = SecurityContextHolder.getContext();

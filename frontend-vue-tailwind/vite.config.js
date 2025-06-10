@@ -4,8 +4,8 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
+import polyfillNode from 'rollup-plugin-polyfill-node'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
@@ -14,7 +14,25 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      buffer: 'buffer',
+      process: 'process/browser',
+    },
+  },
+  define: {
+    global: 'globalThis',
+    process: {
+      env: {}
+    }
+  },
+  optimizeDeps: {
+    include: ['buffer', 'process'],
+  },
+  build: {
+    rollupOptions: {
+      plugins: [
+        polyfillNode() 
+      ],
     },
   },
 })
