@@ -62,7 +62,8 @@
 
       <div class="space-y-3">
         <GmailAccount />
-        <WalletMoblieAccount />
+        <!-- need add after deployment -->
+        <!-- <WalletMoblieAccount /> -->
         <!-- dang nhap bang vi moblie tich hop quet maxQR -->
         <!-- <button class="w-full border border-gray-300 flex items-center justify-center py-2 rounded hover:bg-gray-100">
           <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" alt="Facebook" class="w-5 h-5 mr-2" />

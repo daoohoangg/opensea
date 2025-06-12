@@ -28,7 +28,9 @@ public class SecurityConfig {
             "/auth/refresh",
             "/auth/log-in",
             "/auth/registrationbymetamask",
-            "/auth/registrationbygmail"
+            "/auth/registrationbygmail",
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
     };
 
 //    private final CustomJwtDecoder customJwtDecoder;
@@ -42,7 +44,7 @@ public class SecurityConfig {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

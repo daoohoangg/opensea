@@ -1,15 +1,24 @@
 package com.example.nftservice.controller;
 
+import com.example.nftservice.dto.response.ApiResponse;
 import com.example.nftservice.entity.NFT;
+import com.example.nftservice.service.IPFSUploadService;
 import com.example.nftservice.service.NFTService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/nfts")
 public class NFTController {
+
+    @Autowired
+    private IPFSUploadService ipfsUploadService;
+
     @Autowired
     private NFTService nftService;
 
@@ -42,4 +51,15 @@ public class NFTController {
     public void deleteNFT(@PathVariable String id) {
         nftService.deleteNFT(id);
     }
+
+    @PostMapping("/upload")
+    public Map<String, String> uploadToIpfs(
+            @RequestParam("image") MultipartFile image,
+            @RequestParam("name") String name,
+            @RequestParam("description") String description,
+            @RequestParam(value = "attributes", required = false) String attributesJson
+    ) throws Exception {
+        return ipfsUploadService.upload(image, name, description, attributesJson);
+    }
+
 }
