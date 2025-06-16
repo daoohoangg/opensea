@@ -4,13 +4,21 @@ async function main() {
   // const Contract = await hre.ethers.getContractFactory("MyContract");
   // const contract = await Contract.deploy();
 
-  const Contract = await hre.ethers.getContractFactory("MyNFTCollection");
+  const Contract = await hre.ethers.getContractFactory("NFTCollectionERC1155");
   const contract = await Contract.deploy();
 
   await contract.deployed();
 
   console.log(`Contract deployed to: ${contract.target}`);
   console.log(`Contract deployed to: ${contract.address}`);
+
+  // const Contract = await hre.ethers.getContractFactory("NFTCollectionERC721");
+  // const contract = await Contract.deploy();
+
+  // await contract.deployed();
+
+  // console.log(`Contract deployed to: ${contract.target}`);
+  // console.log(`Contract deployed to: ${contract.address}`);
 
 }
 

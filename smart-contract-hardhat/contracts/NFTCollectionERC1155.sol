@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract MyNFTCollection is ERC1155URIStorage, Ownable {
+contract NFTCollectionERC1155 is ERC1155URIStorage, Ownable {
     uint256 public currentTokenId = 0;
 
     constructor() ERC1155("") Ownable(msg.sender) {}

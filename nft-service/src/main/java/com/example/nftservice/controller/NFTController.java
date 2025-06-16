@@ -52,14 +52,5 @@ public class NFTController {
         nftService.deleteNFT(id);
     }
 
-    @PostMapping("/upload")
-    public Map<String, String> uploadToIpfs(
-            @RequestParam("image") MultipartFile image,
-            @RequestParam("name") String name,
-            @RequestParam("description") String description,
-            @RequestParam(value = "attributes", required = false) String attributesJson
-    ) throws Exception {
-        return ipfsUploadService.upload(image, name, description, attributesJson);
-    }
 
 }

@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -13,13 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Collection {
     @Id
     private String id;
-    private String name;
-    private String description;
     private String imageUrl;      // IPFS URL hoặc link thường
-    private String url;
-    private String category;
-    private String website;
-    private String twitter;
-    private String discord;
-    private String creatorWallet;
+    @Field("metadata")
+    private Map<String, CollectionMetadata> metadata;
 }
