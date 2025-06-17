@@ -1,5 +1,6 @@
 <template>
   <div class="max-w-3xl mx-auto p-6 bg-white rounded-2xl shadow-md space-y-6">
+    <button @click="goBack" class="mb-6 text-gray-600 hover:text-black">&larr;</button>
     <h1 class="text-2xl font-bold">Create a Collection</h1>
 
     <!-- Logo image -->
@@ -9,10 +10,10 @@
     </div>
 
     <!-- Banner image -->
-    <div>
+    <!-- <div>
       <label class="block font-medium">Banner image</label>
       <input type="file" @change="handleFile('banner', $event)" class="mt-1" />
-    </div>
+    </div> -->
 
     <!-- Name -->
     <div>
@@ -59,53 +60,55 @@
     </div>
   </div>
 </template>
+<script setup>
+import { reactive } from 'vue'
 
-<script>
-export default {
-  data() {
-    return {
-      form: {
-        name: '',
-        symbols: '',
-        description: '',
-        category: '',
-        blockchain: 'Ethereum',
-      },
-      files: {
-        logo: null,
-        banner: null,
-      },
-    };
-  },
-  methods: {
-    handleFile(type, event) {
-      this.files[type] = event.target.files[0];
-    },
-    async submitForm() {
-      const formData = new FormData();
-      formData.append('name', this.form.name);
-      formData.append('symbols', this.form.symbols);
-      formData.append('description', this.form.description);
-      formData.append('category', this.form.category);
-      formData.append('blockchain', this.form.blockchain);
-      if (this.files.logo) formData.append('logo', this.files.logo);
-      if (this.files.banner) formData.append('banner', this.files.banner);
+const form = reactive({
+  name: '',
+  symbols: '',
+  description: '',
+  category: '',
+  blockchain: 'Ethereum',
+})
 
-      try {
-        const res = await fetch('/api/collections', {
-          method: 'POST',
-          body: formData,
-        });
+const files = reactive({
+  logo: null,
+  banner: null,
+})
 
-        const data = await res.json();
-        alert('Collection created: ' + data.collectionId);
-      } catch (err) {
-        console.error(err);
-        alert('Failed to create collection');
-      }
-    },
-  },
-};
+function handleFile(type, event) {
+  files[type] = event.target.files[0]
+}
+
+async function submitForm() {
+  const formData = new FormData()
+  formData.append('name', form.name)
+  formData.append('symbols', form.symbols)
+  formData.append('description', form.description)
+  formData.append('category', form.category)
+  formData.append('blockchain', form.blockchain)
+  if (files.logo) formData.append('logo', files.logo)
+  // if (files.banner) formData.append('banner', files.banner)
+
+  try {
+    const res = await fetch('http://localhost:8083/api/v1/create/collection', {
+      method: 'POST',
+      body: formData,
+    })
+
+    const data = await res.json()
+    if(res != null){
+      alert('Collection created: ' + data.collectionId)
+    }
+  } catch (err) {
+    console.error(err)
+    alert('Failed to create collection')
+  }
+}
+
+function goBack() {
+  window.history.back()
+}
 </script>
 
 <style scoped>

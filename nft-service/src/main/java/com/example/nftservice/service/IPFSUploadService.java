@@ -68,7 +68,8 @@ public class IPFSUploadService {
         metadata.description = collectionRequest.getDescription();
         metadata.blockchain = collectionRequest.getBlockchain();
         metadata.image = imageIpfsUrl;
-
+        metadata.category = collectionRequest.getCategory();
+        metadata.symbols = collectionRequest.getSymbols();
 
         // 3. Upload metadata to Pinata
         String metadataHash = uploadJsonToPinata(metadata);
@@ -79,6 +80,7 @@ public class IPFSUploadService {
         collection.setMetadata(Map.of(
                 "metadata", metadata
         ));
+
         collectionRepository.insert(collection);
 
 

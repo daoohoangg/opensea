@@ -14,4 +14,6 @@ public class CollectionMetadata {
     public String description;
     public String image;
     public String blockchain;
+    public String symbols;
+    public String category;
 }

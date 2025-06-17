@@ -10,11 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CollectionRequest {
     MultipartFile logo;
-//    MultipartFile banner;
     String name;
-//    String symbols;
+    String symbols;
     String description;
-//    String category;
+    String category;
     String blockchain;
-
+//    MultipartFile banner;
 }

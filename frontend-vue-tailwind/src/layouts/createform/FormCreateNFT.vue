@@ -1,5 +1,6 @@
 <template>
   <div class="max-w-3xl mx-auto p-6 bg-white shadow rounded-xl space-y-6">
+    <button @click="goBack" class="mb-6 text-gray-600 hover:text-black">&larr;</button>
     <h2 class="text-2xl font-bold">Create New NFT</h2>
 
     <form @submit.prevent="submitForm" enctype="multipart/form-data">
@@ -98,5 +99,8 @@ async function submitForm() {
   })
 
   result.value = res.data
+}
+function goBack() {
+  window.history.back();
 }
 </script>
