@@ -1,63 +1,47 @@
 <template>
-  <div>
-    <h2 class="text-xl font-semibold mb-4">Biểu đồ giá NFT</h2>
-    <Line v-if="chartData" :data="chartData" :options="chartOptions" />
-  </div>
+  <Line :data="chartData" :options="chartOptions" />
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { Line } from 'vue-chartjs';
+import { ref, onMounted } from 'vue'
+import { Line } from 'vue-chartjs'
 import {
   Chart as ChartJS,
+  LineElement,
+  PointElement,
+  LinearScale,
+  CategoryScale,
   Title,
   Tooltip,
-  Legend,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement
-} from 'chart.js';
-import { getNFTSalesHistory } from '@/services/opensea';
+  Legend
+} from 'chart.js'
 
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement
-);
+ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend)
 
-const chartData = ref(null);
+const chartData = ref({
+  labels: [],
+  datasets: [{
+    label: 'ETH Price (USD)',
+    data: [],
+    borderColor: 'rgba(255, 99, 132, 1)',
+    tension: 0.3
+  }]
+})
 
 const chartOptions = {
   responsive: true,
   plugins: {
-    legend: { display: false },
-    title: { display: true, text: 'NFT Price History (ETH)' }
+    legend: { position: 'top' },
+    title: { display: true, text: 'ETH Price (7 days)' }
   }
-};
-
-// Thay bằng contract & token ID thật
-const contractAddress = '0x...';
-const tokenId = '1';
+}
 
 onMounted(async () => {
-  const history = await getNFTSalesHistory(contractAddress, tokenId);
+  const res = await fetch('https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=usd&days=7')
+  const json = await res.json()
 
-  chartData.value = {
-    labels: history.map(item => item.date.toLocaleDateString()),
-    datasets: [
-      {
-        label: 'Giá (ETH)',
-        data: history.map(item => item.price),
-        borderColor: 'rgb(75, 192, 192)',
-        fill: false,
-        tension: 0.3
-      }
-    ]
-  };
-});
+  const prices = json.prices
+  chartData.value.labels = prices.map(item => new Date(item[0]).toLocaleDateString())
+  chartData.value.datasets[0].data = prices.map(item => item[1])
+})
 </script>

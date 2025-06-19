@@ -1,13 +1,14 @@
 require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.28",
   networks: {
     hardhat: {},
-     sepolia: {
-      url: "https://sepolia.infura.io/v3/YOUR_INFURA_KEY",
-      accounts: ["0xYOUR_PRIVATE_KEY"]
+    sepolia: {
+      url: process.env.SEPOLIA_RPC_URL,
+      accounts: [process.env.PRIVATE_KEY]
     }
   }
 };

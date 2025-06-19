@@ -8,12 +8,17 @@ services:
   api-gateway:
     build: ./api-gateway
     ports:
-      - "8080:8080"
+      - "8081:8081"
 
   user-service:
     build: ./user-service
     ports:
       - "8082:8082"
+
+  nft-service:
+    build: ./nft-service
+    ports:
+      - "8083:8083"
 
   mysql-auth:
     image: mysql:8.0
