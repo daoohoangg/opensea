@@ -6,9 +6,9 @@ module.exports = {
   solidity: "0.8.28",
   networks: {
     hardhat: {},
-    sepolia: {
-      url: process.env.SEPOLIA_RPC_URL,
-      accounts: [process.env.PRIVATE_KEY]
+    mumbai: {
+      url: process.env.POLYGON_RPC_URL, // hoặc dùng Alchemy/Infura
+      accounts: [process.env.PRIVATE_KEY] // dùng dotenv để bảo mật
     }
   }
 };

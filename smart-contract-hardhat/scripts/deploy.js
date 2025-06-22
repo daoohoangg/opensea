@@ -1,28 +1,22 @@
-const hre = require("hardhat");
+const { ethers } = require("hardhat");
 
 async function main() {
-  // const Contract = await hre.ethers.getContractFactory("MyContract");
-  // const contract = await Contract.deploy();
+  const [deployer] = await ethers.getSigners();
 
-  const Contract = await hre.ethers.getContractFactory("NFTCollectionERC1155");
-  const contract = await Contract.deploy();
+  console.log("Deploying contract with address:", deployer.address);
+  const balance = await deployer.provider.getBalance(deployer.address);
+  console.log("Deployer balance:", ethers.formatEther(balance), "MATIC");
 
-  await contract.deployed();
+  const ContractFactory = await ethers.getContractFactory("NFTCollectionERC1155");
+  const contract = await ContractFactory.deploy();
 
-  console.log(`Contract deployed to: ${contract.target}`);
-  console.log(`Contract deployed to: ${contract.address}`);
+  await contract.waitForDeployment(); // Ethers v6 - chờ contract được deploy
 
-  // const Contract = await hre.ethers.getContractFactory("NFTCollectionERC721");
-  // const contract = await Contract.deploy();
-
-  // await contract.deployed();
-
-  // console.log(`Contract deployed to: ${contract.target}`);
-  // console.log(`Contract deployed to: ${contract.address}`);
-
+  const deployedAddress = await contract.getAddress();
+  console.log("✅ Contract deployed to:", deployedAddress);
 }
 
 main().catch((error) => {
-  console.error(error);
+  console.error("Error deploying contract:", error);
   process.exitCode = 1;
 });
