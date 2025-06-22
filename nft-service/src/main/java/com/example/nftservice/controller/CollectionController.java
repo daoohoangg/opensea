@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,6 +24,13 @@ public class CollectionController {
     @Autowired
     NFTService nftService;
 
+    @GetMapping("/get-collections")
+    public ApiResponse<List> getAllCollection(){
+        var result = collectionService.getAllCollectionName();
+        return ApiResponse.<List>builder()
+                .result(result)
+                .build();
+    }
     @PostMapping("/create/collection")
     public ApiResponse<Map> creatNewCollection(@ModelAttribute CollectionRequest collection) throws Exception {
         var result = collectionService.createCollection(collection);

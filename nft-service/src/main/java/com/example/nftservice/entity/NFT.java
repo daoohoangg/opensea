@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Map;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,18 +15,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class NFT {
     @Id
     private String id;
-    private String name;
-    private float price;
     private String collectionName;
     private String imageName;
-    private String token;
+    private String name;
+    private int supply;
+    private String description;
+    private String externalink;
+    private Map<String,String> traits;
 
-    public NFT(String name, float price, String collectionName, String imageName, String token) {
-        super();
-        this.name = name;
-        this.price = price;
+    public NFT(String collectionName, String imageName, String name, int supply, String description, String externalink, Map<String, String> traits) {
         this.collectionName = collectionName;
         this.imageName = imageName;
-        this.token = token;
+        this.name = name;
+        this.supply = supply;
+        this.description = description;
+        this.externalink = externalink;
+        this.traits = traits;
     }
 }

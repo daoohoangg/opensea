@@ -65,10 +65,8 @@ public class IPFSUploadService {
         // 2. Create metadata
         CollectionMetadata metadata = new CollectionMetadata();
         metadata.name = collectionRequest.getName();
-        metadata.description = collectionRequest.getDescription();
         metadata.blockchain = collectionRequest.getBlockchain();
         metadata.image = imageIpfsUrl;
-        metadata.category = collectionRequest.getCategory();
         metadata.symbols = collectionRequest.getSymbols();
 
         // 3. Upload metadata to Pinata

@@ -1,6 +1,6 @@
-<!-- src/components/DropForm.vue -->
 <template>
   <div class="max-w-4xl mx-auto py-10 px-4">
+    <button @click="goBack" class="mb-6 text-gray-600 hover:text-black">&larr;</button>
     <h1 class="text-3xl font-bold mb-6">Create a smart contract for your drop</h1>
 
     <div class="bg-white p-6 rounded-xl shadow space-y-6">
@@ -81,6 +81,9 @@ const blockchains = [
   { id: 'base', name: 'Base', desc: 'Cheaper' },
   { id: 'polygon', name: 'Polygon', desc: 'Low gas fees' }
 ]
+function goBack() {
+  window.history.back()
+}
 </script>
 
 <style scoped>

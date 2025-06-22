@@ -12,8 +12,6 @@ public class CollectionRequest {
     MultipartFile logo;
     String name;
     String symbols;
-    String description;
-    String category;
     String blockchain;
 //    MultipartFile banner;
 }
