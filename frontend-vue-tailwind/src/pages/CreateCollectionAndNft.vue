@@ -6,7 +6,7 @@
       <h1 class="text-4xl font-bold mb-6">Create</h1>
 
       <!-- Drop -->
-      <a href="/opennft/studio/create-collection" class="mb-4 p-6 rounded-lg border hover:shadow cursor-pointer flex justify-between items-center" @click="handleClick('drop')">
+      <a href="/opennft/studio/create-drop" class="mb-4 p-6 rounded-lg border hover:shadow cursor-pointer flex justify-between items-center" @click="handleClick('drop')">
         <div>
           <p class="text-lg font-semibold mb-1">Drop</p>
           <p class="text-sm text-gray-600">

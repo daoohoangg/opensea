@@ -7,6 +7,7 @@ import CreateCollectionAndNft from '@/pages/CreateCollectionAndNft.vue';
 import FormCreateCollection from '@/layouts/createform/FormCreateCollection.vue';
 import FormCreateNFT from '@/layouts/createform/FormCreateNFT.vue';
 import StudioLayout from '@/pages/StudioLayout.vue';
+import DropNFTs from '@/layouts/createform/DropNFTs.vue';
 
 
 const routes = [
@@ -25,11 +26,15 @@ const routes = [
     ]
   },
   {
+    path: '/dashboard',
+    component: DropNFTs
+  },
+  {
   path: '/opennft/studio',
   component: StudioLayout,
   children: [
     {
-      path: 'create-collection', // full path: /opennft/studio/create-collection
+      path: 'create-drop', // full path: /opennft/studio/create-collection
       component: FormCreateCollection
     },
     {
@@ -38,7 +43,7 @@ const routes = [
     },
     {
       path: '',
-    component: CreateCollectionAndNft,
+      component: CreateCollectionAndNft,
     }
   ]
 }

@@ -4,7 +4,7 @@
   <CategoryBar />
   <!-- <router-link to="/auth/login">Login</router-link> -->
   <!-- <ChartCoin/> -->
-  <CoinChart/>
+  <!-- <CoinChart/> -->
   <CollectionsStatsRight />
   <Footer />
 </template>
