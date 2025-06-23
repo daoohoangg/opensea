@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "npx hardhat compile",
+    "copy-abi": "node copy-abi.js",
+    "build": "npm run compile && npm run copy-abi"
   },
   "keywords": [],
   "author": "",
@@ -20,4 +23,5 @@
     "alchemy-sdk": "^3.6.0",
     "dotenv": "^16.5.0"
   }
+  
 }
