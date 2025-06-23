@@ -13,9 +13,9 @@
 
       <!-- Select Collection -->
       <div v-if="collectionsName.length === 0">
-      <div
+      <a
         class="flex items-center gap-4 bg-gray-100 p-4 rounded-lg cursor-pointer hover:bg-gray-200"
-        @click="createCollection"
+        @click="createCollection" href="create-collection"
       >
         <div
           class="flex items-center justify-center w-10 h-10 rounded-md bg-gray-200 text-xl font-bold"
@@ -23,7 +23,7 @@
           +
         </div>
         <div class="font-semibold text-black">Create a new collection</div>
-      </div>
+      </a>
 
       <p class="text-sm text-gray-500 mt-2">
         Not all collections are eligible.
@@ -33,6 +33,7 @@
 
     <!-- Có collection -->
     <div v-else-if="collectionsName.length > 0" class="mb-4">
+      <label class="block font-medium mb-2">Choose a collections*</label>
       <select v-model="form.id" class="w-full border rounded p-2">
         <option disabled value="">-- Choose a collection --</option>
         <option v-for="col in collectionsName" :key="col.id" :value="col.id">

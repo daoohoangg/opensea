@@ -13,5 +13,6 @@ public class CollectionRequest {
     String name;
     String symbols;
     String blockchain;
+    String contractAddress;
 //    MultipartFile banner;
 }

@@ -68,6 +68,7 @@ public class IPFSUploadService {
         metadata.blockchain = collectionRequest.getBlockchain();
         metadata.image = imageIpfsUrl;
         metadata.symbols = collectionRequest.getSymbols();
+        metadata.contractAddress = collectionRequest.getContractAddress();
 
         // 3. Upload metadata to Pinata
         String metadataHash = uploadJsonToPinata(metadata);

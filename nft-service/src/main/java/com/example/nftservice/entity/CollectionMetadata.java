@@ -16,4 +16,5 @@ public class CollectionMetadata {
     public String blockchain;
     public String symbols;
     public String category;
+    public String contractAddress;
 }
