@@ -60,7 +60,7 @@ const form = reactive({
   symbols: '',
   description: '',
   category: '',
-  blockchain: 'Ethereum',
+  blockchain: 'Polygon',
 })
 
 const files = reactive({
@@ -85,6 +85,11 @@ const connectWallet = async () => {
     alert("Hãy cài MetaMask");
   }
 };
+
+import factoryABI from "@/";
+
+const factory = new ethers.Contract(factoryAddress, factoryABI.abi, signer);
+
 const deployContract = async () => {
   if (!account.value) {
     await connectWallet(); // Bảo đảm người dùng đã kết nối ví

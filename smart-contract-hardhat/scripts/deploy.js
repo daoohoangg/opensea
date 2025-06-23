@@ -8,7 +8,7 @@ async function main() {
   console.log("Deployer balance:", ethers.formatEther(balance), "MATIC");
 
   const ContractFactory = await ethers.getContractFactory("NFTCollectionERC1155");
-  const contract = await ContractFactory.deploy();
+  const contract = await ContractFactory.deploy("My Collection", "MYC"); // truyen tham số constructor tu frontend
 
   await contract.waitForDeployment(); // Ethers v6 - chờ contract được deploy
 

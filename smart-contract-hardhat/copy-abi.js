@@ -1,35 +1,27 @@
-const fs = require("fs");
+const fs = require("fs");        
 const path = require("path");
+const contractsDir = path.resolve(__dirname, '../smart-contract-hardhat/artifacts/contracts');
+const outDir = path.resolve(__dirname, '../../frontend-vue-tailwind/src/contracts');
 
-const contracts = ["NFTCollectionERC1155", "NFTCollectionFactory"]; // <-- Tên contract copy
+fs.readdirSync(contractsDir).forEach(file => {
+  if (!file.endsWith('.sol')) return;
 
-contracts.forEach((contractName) => {
-  const artifactPath = path.resolve(
-    __dirname,
-    "artifacts/contracts",
-    `${contractName}.sol`,
-    `${contractName}.json`
-  );
+  const contractName = file.replace('.sol', '');
+  const srcPath = path.join(contractsDir, file, `${contractName}.json`);
+  const destPath = path.join(outDir, `${contractName}.json`);
 
-  const destDir = path.resolve(__dirname, "frontend/src/contracts");
-  const destPath = path.resolve(destDir, `${contractName}.json`);
-
-  if (!fs.existsSync(artifactPath)) {
-    console.error(`ABI not found for ${contractName}`);
+  if (!fs.existsSync(srcPath)) {
+    console.warn(`⚠️ Skipping missing ABI for ${contractName}`);
     return;
   }
 
-  if (!fs.existsSync(destDir)) {
-    fs.mkdirSync(destDir, { recursive: true });
-  }
-
-  const artifact = require(artifactPath);
-
-  const minimalABI = {
+  const artifact = require(srcPath);
+  const minimal = {
     abi: artifact.abi,
     bytecode: artifact.bytecode,
   };
 
-  fs.writeFileSync(destPath, JSON.stringify(minimalABI, null, 2));
-  console.log(`✅ Copied ABI for ${contractName} to frontend.`);
+  fs.mkdirSync(path.dirname(destPath), { recursive: true });
+  fs.writeFileSync(destPath, JSON.stringify(minimal, null, 2));
+  console.log(`✅ Copied ${contractName}.json`);
 });
