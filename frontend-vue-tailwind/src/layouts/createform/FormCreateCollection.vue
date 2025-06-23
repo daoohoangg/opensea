@@ -13,6 +13,7 @@
     <div>
       <label class="block font-medium">Logo image *</label>
       <input type="file" @change="handleFile('logo', $event)" class="mt-1"  required/>
+      <p v-if="errors.logo" class="text-red-500 text-sm mt-1">{{ errors.logo }}</p>
     </div>
 
     <!-- Banner image -->
@@ -25,11 +26,13 @@
     <div>
       <label class="block font-medium">Contract Name *</label>
       <input v-model="form.name" type="text" class="w-full border p-2 rounded" required />
+      <p v-if="errors.name" class="text-red-500 text-sm mt-1">{{ errors.name }}</p>
     </div>
     <!-- Name -->
     <div>
       <label class="block font-medium">Token Symbols *</label>
       <input v-model="form.symbols" type="text" class="w-full border p-2 rounded" required />
+      <p v-if="errors.symbols" class="text-red-500 text-sm mt-1">{{ errors.symbols }}</p>
     </div>
 
     <!-- Blockchain -->
@@ -44,7 +47,7 @@
 
     <!-- Submit -->
     <div>
-      <button @click="() => { deployContract(); }" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+      <button @click="() => {if (validateForm()) deployContract(); }" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
         Create Collection
       </button>
     </div>
@@ -54,6 +57,11 @@
 import { reactive } from 'vue'
 import { ref } from "vue";
 import { ethers } from "ethers";
+const errors = reactive({
+  logo: '',
+  name: '',
+  symbols: ''
+});
 
 const form = reactive({
   name: '',
@@ -86,9 +94,8 @@ const connectWallet = async () => {
   }
 };
 
-import factoryABI from "@/";
+import contractArtifact from "@/contracts/NFTCollectionERC1155.json";
 
-const factory = new ethers.Contract(factoryAddress, factoryABI.abi, signer);
 
 const deployContract = async () => {
   if (!account.value) {
@@ -106,12 +113,12 @@ const deployContract = async () => {
       signer
     );
 
-    const contract = await factory.deploy();
+    const contract = await factory.deploy(form.name,form.symbols);
     await contract.waitForDeployment();
 
     const deployedAddress = await contract.getAddress();
     contractAddress.value = deployedAddress;
-    status.value = "✅ Deploy thành công!";
+    status.value = "✅ Deploy thành công! at:" + deployedAddress;
 
     // 🔽 Sau khi deploy xong → gửi API
     const formData = new FormData();
@@ -129,6 +136,7 @@ const deployContract = async () => {
     const data = await res.json();
     if (res.ok) {
       console.log("✅ Collection saved to DB:", data);
+      resetForm();
     } else {
       console.error("❌ Backend error:", data);
     }
@@ -142,6 +150,41 @@ const deployContract = async () => {
 function goBack() {
   window.history.back()
 }
+
+const validateForm = () => {
+  let isValid = true;
+  errors.name = '';
+  errors.symbols = '';
+  errors.logo = '';
+
+  if (!files.logo) {
+    errors.logo = 'Image is required.';
+    isValid = false;
+  }
+  if (!form.name.trim()) {
+    errors.name = 'Contract name is required.';
+    isValid = false;
+  }
+
+  if (!form.symbols.trim()) {
+    errors.symbols = 'Token symbol is required.';
+    isValid = false;
+  }
+
+  return isValid;
+};
+const resetForm = () => {
+  form.name = '';
+  form.symbols = '';
+  form.blockchain = 'Polygon';
+  files.logo = null;
+
+  errors.name = '';
+  errors.symbols = '';
+  errors.logo = '';
+};
+
+
 </script>
 
 <style scoped>

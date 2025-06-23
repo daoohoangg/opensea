@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "./NFTCollectionERC1155.sol";
-
+// chi dung trong truong hop deployed contract tu truoc
 contract NFTCollectionFactory {
     event CollectionCreated(address indexed owner, address indexed collection);
 

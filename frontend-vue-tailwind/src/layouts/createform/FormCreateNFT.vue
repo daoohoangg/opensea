@@ -33,12 +33,13 @@
 
     <!-- Có collection -->
     <div v-else-if="collectionsName.length > 0" class="mb-4">
-      <label class="block font-medium mb-2">Choose a collections*</label>
+      <label class="block font-medium mb-2">Choose a collections* or <a href="create-collection">--Create New Collection--</a></label>
       <select v-model="form.id" class="w-full border rounded p-2">
         <option disabled value="">-- Choose a collection --</option>
         <option v-for="col in collectionsName" :key="col.id" :value="col.id">
           {{ col.name }}
         </option>
+        
       </select>
     </div>
 
