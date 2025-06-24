@@ -44,8 +44,8 @@ public class IPFSUploadService {
         metadata.image = imageIpfsUrl;
 
         if (attributesJson != null && !attributesJson.isEmpty()) {
-            List<Map<String, Object>> attrs = objectMapper.readValue(attributesJson, List.class);
-            metadata.attributes = attrs;
+            Map<String, String>attrs = objectMapper.readValue(attributesJson, Map.class);
+            metadata.traits = attrs;
         }
 
         // 3. Upload metadata to Pinata
@@ -69,6 +69,7 @@ public class IPFSUploadService {
         metadata.image = imageIpfsUrl;
         metadata.symbols = collectionRequest.getSymbols();
         metadata.contractAddress = collectionRequest.getContractAddress();
+        metadata.ownerwalletAddress = collectionRequest.getOwnerwalletAddress();
 
         // 3. Upload metadata to Pinata
         String metadataHash = uploadJsonToPinata(metadata);
