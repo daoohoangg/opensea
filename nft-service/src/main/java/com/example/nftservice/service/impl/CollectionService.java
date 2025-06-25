@@ -1,19 +1,17 @@
-package com.example.nftservice.service;
+package com.example.nftservice.service.impl;
 
 import com.example.nftservice.dto.request.CollectionRequest;
 import com.example.nftservice.dto.response.CollectionNameDTO;
-import com.example.nftservice.entity.Collection;
 import com.example.nftservice.repository.CollectionRepository;
+import com.example.nftservice.service.ICollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
-public class CollectionService {
+public class CollectionService implements ICollectionService {
     @Autowired
     IPFSUploadService ipfsUploadService;
     @Autowired

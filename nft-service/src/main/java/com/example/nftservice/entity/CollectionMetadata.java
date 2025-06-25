@@ -17,4 +17,5 @@ public class CollectionMetadata {
     public String symbols;
     public String category;
     public String contractAddress;
+    public String ownerwalletAddress;
 }

@@ -15,6 +15,8 @@ public enum ErrorCode {
     UNAUTHORIZED(1007, "You do not have permission", HttpStatus.FORBIDDEN),
     INVALID_DOB(1008, "Your age must be at least {min}", HttpStatus.BAD_REQUEST),
     INVALID_FILE(1009, "File can not nul", HttpStatus.BAD_REQUEST),
+    UNABLE_CREATE_COLLECTION(1010,"Failed in create new collectiion",HttpStatus.BAD_REQUEST),
+    UNABLE_CREAT_NFT(1011,"Failed in create new nft",HttpStatus.BAD_REQUEST)
     ;
 
     ErrorCode(int code, String message, HttpStatusCode statusCode) {

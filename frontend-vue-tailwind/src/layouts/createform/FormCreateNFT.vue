@@ -120,7 +120,7 @@ async function submitForm() {
   formData.append('collectionId', form.value.collectionId)
   formData.append('attributes', JSON.stringify(form.value.attributes))
 
-  const res = await axios.post('http://localhost:8080/api/nft/upload', formData, {
+  const res = await axios.post('http://localhost:8083/api/v1/nft/upload', formData, {
     headers: { 'Content-Type': 'multipart/form-data' }
   })
 

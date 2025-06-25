@@ -1,4 +1,4 @@
-package com.example.nftservice.service;
+package com.example.nftservice.service.impl;
 
 import com.example.nftservice.entity.NFT;
 import com.example.nftservice.repository.NFTRepository;

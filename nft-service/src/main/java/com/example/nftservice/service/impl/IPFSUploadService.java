@@ -1,10 +1,13 @@
-package com.example.nftservice.service;
+package com.example.nftservice.service.impl;
 
 import com.example.nftservice.dto.request.CollectionRequest;
+import com.example.nftservice.dto.request.NFTRequest;
 import com.example.nftservice.entity.Collection;
 import com.example.nftservice.entity.CollectionMetadata;
 import com.example.nftservice.entity.NFTMetadata;
 import com.example.nftservice.repository.CollectionRepository;
+import com.example.nftservice.service.ICollectionService;
+import com.example.nftservice.service.INFTService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +21,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Service
-public class IPFSUploadService {
+public class IPFSUploadService implements ICollectionService, INFTService {
 
     @Value("${pinata.jwt}")
     private String pinataJwt;
@@ -32,19 +35,19 @@ public class IPFSUploadService {
     }
 
 
-    public Map<String, String> upload(MultipartFile image, String name, String description, String attributesJson) throws Exception {
+    public Map<String, String> upload(NFTRequest nftRequest) throws Exception {
         // 1. Upload image to IPFS
-        String imageHash = uploadFileToPinata(image);
+        String imageHash = uploadFileToPinata(nftRequest.getImage());
         String imageIpfsUrl = "ipfs://" + imageHash;
 
         // 2. Create metadata
         NFTMetadata metadata = new NFTMetadata();
-        metadata.name = name;
-        metadata.description = description;
+        metadata.name = nftRequest.getName();
+        metadata.description = nftRequest.getDescription();
         metadata.image = imageIpfsUrl;
 
-        if (attributesJson != null && !attributesJson.isEmpty()) {
-            Map<String, String>attrs = objectMapper.readValue(attributesJson, Map.class);
+        if (nftRequest.getAttributesJson() != null && !nftRequest.getAttributesJson().isEmpty()) {
+            Map<String, String>attrs = objectMapper.readValue(nftRequest.getAttributesJson(), Map.class);
             metadata.traits = attrs;
         }
 

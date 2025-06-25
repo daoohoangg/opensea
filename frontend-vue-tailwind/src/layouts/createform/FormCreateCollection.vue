@@ -125,6 +125,7 @@ const deployContract = async () => {
     formData.append('name', form.name);
     formData.append('symbols', form.symbols);
     formData.append('blockchain', form.blockchain);
+    formData.append('ownerwalletAddress',account);
     formData.append('contractAddress', deployedAddress); // << thêm địa chỉ contract
     if (files.logo) formData.append('logo', files.logo);
 

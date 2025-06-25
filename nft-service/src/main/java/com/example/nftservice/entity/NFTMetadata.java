@@ -15,5 +15,9 @@ public class NFTMetadata {
     public String name;
     public String description;
     public String image;
-    public List<Map<String, Object>> attributes;
+    public int supply;
+    public String category;
+    public String contractAddress;
+    public String ownerwalletAddress;
+    public Map<String, String> traits;
 }

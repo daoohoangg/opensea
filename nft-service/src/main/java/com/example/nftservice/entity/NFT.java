@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Map;
 
@@ -15,21 +16,8 @@ import java.util.Map;
 public class NFT {
     @Id
     private String id;
-    private String collectionName;
-    private String imageName;
-    private String name;
-    private int supply;
-    private String description;
-    private String externalink;
-    private Map<String,String> traits;
+    private String imageUrl;      // IPFS URL hoặc link thường
+    @Field("metadata")
+    private Map<String, NFTMetadata> nftMetadata;
 
-    public NFT(String collectionName, String imageName, String name, int supply, String description, String externalink, Map<String, String> traits) {
-        this.collectionName = collectionName;
-        this.imageName = imageName;
-        this.name = name;
-        this.supply = supply;
-        this.description = description;
-        this.externalink = externalink;
-        this.traits = traits;
-    }
 }
