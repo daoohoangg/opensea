@@ -1,10 +1,15 @@
 package com.example.authservice.entity;
 
+import com.example.authservice.enums.Permissions;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.web3j.protocol.core.RpcErrors;
+
 @Getter
 @Setter
 @Builder
@@ -14,6 +19,7 @@ import lombok.experimental.FieldDefaults;
 @Entity
 public class Permission {
     @Id
-    String name;
+    @Enumerated(EnumType.STRING)
+    Permissions name;
     String description;
 }

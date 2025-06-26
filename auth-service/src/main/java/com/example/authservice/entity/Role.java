@@ -2,9 +2,8 @@ package com.example.authservice.entity;
 
 import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import com.example.authservice.enums.Roles;
+import jakarta.persistence.*;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -18,11 +17,12 @@ import lombok.experimental.FieldDefaults;
 @Entity
 public class Role {
     @Id
-    String name;
+    @Enumerated(EnumType.STRING)
+    Roles name;
 
     String description;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     Set<Permission> permissions;
 
 }

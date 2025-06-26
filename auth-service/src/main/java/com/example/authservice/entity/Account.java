@@ -24,9 +24,10 @@ public class Account {
     String password;
     String walletAddress;
     String email;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     Set<Role> roles;
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    Set<SignInType> signInTypes;
 }
 
 

@@ -1,12 +1,9 @@
 package com.example.authservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import com.example.authservice.enums.SignInTypes;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.util.Set;
 
 @Getter
 @Setter
@@ -15,9 +12,11 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class LoginType {
+public class SignInType {
     @Id
-    String name;
+    @Enumerated(EnumType.STRING)
+    SignInTypes name;
 
-    String typeName;
+    String description;
+
 }
