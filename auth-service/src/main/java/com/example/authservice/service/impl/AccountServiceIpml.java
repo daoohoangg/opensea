@@ -8,6 +8,7 @@ import com.example.authservice.dto.response.AccountResponse;
 import com.example.authservice.dto.response.AuthenticationResponse;
 import com.example.authservice.entity.Account;
 import com.example.authservice.entity.Role;
+import com.example.authservice.enums.Roles;
 import com.example.authservice.exception.AppException;
 import com.example.authservice.exception.ErrorCode;
 import com.example.authservice.mapper.AccountMapper;
@@ -32,10 +33,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -57,10 +56,9 @@ public class AccountServiceIpml implements AccountService{
         Account account = accountMapper.toAccount(accountCreationRequest);
         account.setPassword(passwordEncoderBCrypt.encode(accountCreationRequest.getPassword()));
 
-        HashSet<Role> roles = new HashSet<>();
+        Role userRole = roleRepository.findByName(Roles.USER).orElseThrow();
+        account.setRoles(Set.of(userRole));
 
-        account.setRoles(roles);
-        
         account = accountRepository.save(account);
         //thieu profile mapper
         return accountMapper.toAccountResponse(account);
@@ -72,9 +70,8 @@ public class AccountServiceIpml implements AccountService{
             account = accountMapper.toAccount(registerMetamaskRequest);
             account.setWalletAddress(registerMetamaskRequest.getAddress());
 
-            HashSet<Role> roles = new HashSet<>();
-
-            account.setRoles(roles);
+            Role userRole = roleRepository.findByName(Roles.USER).orElseThrow();
+            account.setRoles(Set.of(userRole));
 
             account = accountRepository.save(account);
             // login luon = vi
@@ -113,9 +110,9 @@ public class AccountServiceIpml implements AccountService{
                     account.setEmail(email);
                     account.setUsername(name);
 
-                    HashSet<Role> roles = new HashSet<>();
+                    Role userRole = roleRepository.findByName(Roles.USER).orElseThrow();
+                    account.setRoles(Set.of(userRole));
 
-                    account.setRoles(roles);
                     accountRepository.save(account);
                 };
 //                taojwt
@@ -155,11 +152,11 @@ public class AccountServiceIpml implements AccountService{
             account = accountMapper.toAccount(walletConnectRequest);
             account.setWalletAddress(walletConnectRequest.getAddress());
 
-            HashSet<Role> roles = new HashSet<>();
-
-            account.setRoles(roles);
+            Role userRole = roleRepository.findByName(Roles.USER).orElseThrow();
+            account.setRoles(Set.of(userRole));
 
             account = accountRepository.save(account);
+
         }
 
         var token = authenticationService.generateToken(account);
@@ -183,8 +180,8 @@ public class AccountServiceIpml implements AccountService{
         accountMapper.updateAccount(account, request);
         account.setPassword(passwordEncoderBCrypt.encode(request.getPassword()));
 
-        var roles = roleRepository.findAllById(request.getRoles());
-        account.setRoles(new HashSet<>(roles));
+//        var roles = roleRepository.findAllById(request.getRoles());
+//        account.setRoles(new HashSet<>(roles));
 
         return accountMapper.toAccountResponse(accountRepository.save(account));
     }

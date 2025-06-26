@@ -14,8 +14,12 @@ import lombok.experimental.FieldDefaults;
 @Entity
 public class SignInType {
     @Id
+    @GeneratedValue
+    Long id;
+
     @Enumerated(EnumType.STRING)
-    SignInTypes name;
+    @Column(unique = true)
+    private SignInTypes name;
 
     String description;
 

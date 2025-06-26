@@ -3,6 +3,7 @@ package com.example.authservice.entity;
 import java.util.Set;
 
 import com.example.authservice.enums.Roles;
+import com.example.authservice.enums.SignInTypes;
 import jakarta.persistence.*;
 
 import lombok.*;
@@ -17,8 +18,12 @@ import lombok.experimental.FieldDefaults;
 @Entity
 public class Role {
     @Id
+    @GeneratedValue
+    Long id;
+
     @Enumerated(EnumType.STRING)
-    Roles name;
+    @Column(unique = true)
+    private Roles name;
 
     String description;
 
