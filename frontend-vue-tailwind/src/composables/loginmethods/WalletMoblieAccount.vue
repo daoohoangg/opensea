@@ -28,7 +28,7 @@ async function connectWallet() {
     uri.value = pairingUri
 
     // Send login/registration data to backend
-    const res = await axios.post("http://localhost:8090/auth/registrationbywallet", {
+    const res = await axios.post("http://localhost:8090/api/v1/auth/registrationbywallet", {
       address,
       signature,
       message,

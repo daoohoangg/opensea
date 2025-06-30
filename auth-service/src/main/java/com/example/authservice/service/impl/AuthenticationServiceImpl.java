@@ -80,6 +80,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                 //xac dinh tai khoan dang nhap
                 .subject(user.getUsername())
+                .subject(user.getWalletAddress())
                 //domain-service
                 .issuer("auth-service")
                 .issueTime(new Date())

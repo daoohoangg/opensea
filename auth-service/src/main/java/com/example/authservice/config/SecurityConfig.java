@@ -1,8 +1,9 @@
 package com.example.authservice.config;
 
+import com.example.authservice.components.JwtDecoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,24 +21,26 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    @Autowired
+    JwtDecoder jwtDecode;
     private static final String[] PUBLIC_ENDPOINTS = {
-            "/auth/registration",
-            "/auth/token",
-            "/auth/introspect",
-            "/auth/logout",
-            "/auth/refresh",
-            "/auth/log-in",
-            "/auth/registrationbymetamask",
-            "/auth/registrationbygmail",
+            "/api/v1/auth/registration",
+            "/api/v1/auth/token",
+            "/api/v1/auth/introspect",
+            "/api/v1/auth/logout",
+            "/api/v1/auth/refresh",
+            "/api/v1/auth/log-in",
+            "/api/v1/auth/registrationbymetamask",
+            "/api/v1/auth/registrationbygmail",
             "/swagger-ui/**",
             "/v3/api-docs/**",
     };
 
-//    private final CustomJwtDecoder customJwtDecoder;
-//
-//    public SecurityConfig(CustomJwtDecoder customJwtDecoder) {
-//        this.customJwtDecoder = customJwtDecoder;
-//    }
+    private final JwtDecoder customJwtDecoder;
+
+    public SecurityConfig(JwtDecoder customJwtDecoder) {
+        this.customJwtDecoder = customJwtDecoder;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -50,11 +53,11 @@ public class SecurityConfig {
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(Customizer.withDefaults());
 
-//        httpSecurity.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer
-//                        .decoder(customJwtDecoder)
-//                        .jwtAuthenticationConverter(jwtAuthenticationConverter()))
-//                .authenticationEntryPoint(new JwtAuthenticationEntryPoint()));
-//        httpSecurity.csrf(AbstractHttpConfigurer::disable);
+        httpSecurity.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer
+                        .decoder(customJwtDecoder)
+                        .jwtAuthenticationConverter(jwtAuthenticationConverter()))
+                .authenticationEntryPoint(new JwtAuthenticationEntryPoint()));
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
 
         return httpSecurity.build();
     }

@@ -28,7 +28,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ApplicationConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/auth/**") // hoặc "/*" nếu bạn dùng nhiều endpoint
+        registry.addMapping("/api/v1/auth/**") // hoặc "/*" nếu bạn dùng nhiều endpoint
                 .allowedOrigins("http://localhost:5173") // port frontend
                 .allowedMethods("*")
                 .allowedHeaders("*");

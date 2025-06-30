@@ -9,7 +9,6 @@ import java.util.Objects;
 
 public class DobValidator implements ConstraintValidator<DobConstraint, LocalDate> {
     private int min;
-
     @Override
     public void initialize(DobConstraint constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
