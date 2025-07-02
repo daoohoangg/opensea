@@ -143,6 +143,7 @@ onMounted(async () => {
     loading.value = false
   }
 })
+
 function goBack() {
   window.history.back();
 }

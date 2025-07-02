@@ -196,8 +196,8 @@ public class AccountServiceIpml implements AccountService{
 //        log.info("In method get Users");
         return accountRepository.findAll().stream().map(accountMapper::toAccountResponse).toList();
     }
-
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')" )
+    @PreAuthorize("hasAuthority('USER_DELETE')")
     public AccountResponse getUser(String id) {
         return accountMapper.toAccountResponse(
                 accountRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));

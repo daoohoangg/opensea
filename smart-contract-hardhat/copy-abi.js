@@ -1,7 +1,7 @@
 const fs = require("fs");        
 const path = require("path");
 const contractsDir = path.resolve(__dirname, '../smart-contract-hardhat/artifacts/contracts');
-const outDir = path.resolve(__dirname, '../../Microservices/frontend-vue-tailwind/src/contracts');
+const outDir = path.resolve(__dirname, '../frontend-vue-tailwind/src/contracts');
 
 fs.readdirSync(contractsDir).forEach(file => {
   if (!file.endsWith('.sol')) return;

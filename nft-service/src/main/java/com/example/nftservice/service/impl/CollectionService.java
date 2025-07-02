@@ -1,7 +1,7 @@
 package com.example.nftservice.service.impl;
 
 import com.example.nftservice.dto.request.CollectionRequest;
-import com.example.nftservice.dto.response.CollectionNameDTO;
+import com.example.nftservice.dto.response.CollectionNameResponse;
 import com.example.nftservice.repository.CollectionRepository;
 import com.example.nftservice.service.ICollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,12 @@ public class CollectionService implements ICollectionService {
         return result;
     }
 
-    public List<CollectionNameDTO> getAllCollectionName() {
+    public List<CollectionNameResponse> getAllCollectionName() {
         return collectionRepository.findAllCollectionNames();
+    }
+
+    @Override
+    public Map<String, String> upload(CollectionRequest collectionRequest) throws Exception {
+        return null;
     }
 }

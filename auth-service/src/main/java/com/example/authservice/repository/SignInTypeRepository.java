@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface SignInTypeRepository extends JpaRepository<SignInType, Long> {
+public interface SignInTypeRepository extends JpaRepository<SignInType, String> {
     Optional<SignInType> findByName(SignInTypes name);
 
     boolean existsByName(SignInTypes signInType);

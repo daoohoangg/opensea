@@ -1,12 +1,10 @@
 package com.example.authservice.entity;
 
-import com.example.authservice.enums.Permissions;
-import com.example.authservice.enums.SignInTypes;
+
 import jakarta.persistence.*;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.web3j.protocol.core.RpcErrors;
 
 @Getter
 @Setter
@@ -17,12 +15,11 @@ import org.web3j.protocol.core.RpcErrors;
 @Entity
 public class Permission {
     @Id
-    @GeneratedValue
-    Long id;
+    String name;
 
-    @Enumerated(EnumType.STRING)
-    @Column(unique = true)
-    private Permissions name;
+//    @Enumerated(EnumType.STRING)
+//    @Column(unique = true)
+//    private Permissions name;
 
     String description;
 }
