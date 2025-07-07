@@ -40,7 +40,7 @@ FROM base AS deps
 WORKDIR /build
 RUN --mount=type=bind,source=pom.xml,target=pom.xml \
     --mount=type=cache,target=/root/.m2 \
-    ./mvnw dependency:resolve -DskipTests
+    ./mvnw dependency:go-offline -DskipTests
 ################################################################################
 
 # Create a stage for building the application based on the stage with downloaded dependencies.
@@ -114,6 +114,6 @@ COPY --from=extract build/target/extracted/spring-boot-loader/ ./
 COPY --from=extract build/target/extracted/snapshot-dependencies/ ./
 COPY --from=extract build/target/extracted/application/ ./
 
-EXPOSE 8090
+EXPOSE 8080
 
 ENTRYPOINT [ "java", "org.springframework.boot.loader.launch.JarLauncher" ]
