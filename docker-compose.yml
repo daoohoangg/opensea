@@ -1,29 +1,16 @@
-version: '3.9'
 services:
-  auth-service:
-    build: ./auth-service
+  eureka-server:
+    build: ./eureka-server
+    container_name: eureka-server
     ports:
-      - "8080:8080"
-
-  api-gateway:
-    build: ./api-gateway
+      - "8761:8761"
+  cloud-gateway:
+    build: ./cloud-gateway
     ports:
-      - "8081:8081"
-
-  user-service:
-    build: ./user-service
-    ports:
-      - "8082:8082"
-
-  nft-service:
-    build: ./nft-service
-    ports:
-      - "8083:8083"
-
-  mysql-auth:
-    image: mysql:8.0
+      - "9191:9191"
+    depends_on:
+      - eureka-server
     environment:
-      MYSQL_DATABASE: auth_db
-      MYSQL_ROOT_PASSWORD: 123456
-    ports:
-      - "3307:3306"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+
+version: '3.8'

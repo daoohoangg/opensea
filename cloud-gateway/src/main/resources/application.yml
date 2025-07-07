@@ -1,11 +1,16 @@
 server:
-  port: 9191
+  port: 9191  # Cổng riêng của gateway, không đụng với Eureka
 
 spring:
   application:
     name: CLOUD-GATEWAY
+  main:
+    web-application-type: reactive
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       globalcors:
@@ -18,13 +23,26 @@ spring:
         - id: NFT-SERVICE
           uri: lb://NFT-SERVICE
           predicates:
-            - Path=/api/nfts/**
-        - id: USER-SERVICE
-          uri: lb://USER-SERVICE
+            - Path=/api/v1/nft/**
+          filters:
+            - StripPrefix=3
+
+        - id: AUTH-SERVICE
+          uri: lb://AUTH-SERVICE
           predicates:
-            - Path=/api/users/**
-    security:
-      oauth2:
-        resourceserver:
-          jwt:
-            jwk-set-uri: http://auth-service/.well-known/jwks.json
+            - Path=/api/v1/auth/**
+          filters:
+            - StripPrefix=3
+
+    discovery:
+      enabled: true
+      locator:
+        enabled: true
+        lower-case-service-id: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka  # Đảm bảo eureka-server đang chạy ở đây
+    register-with-eureka: true
+    fetch-registry: true
