@@ -4,16 +4,12 @@ import com.example.authservice.entity.Role;
 import com.example.authservice.entity.SignInType;
 import com.example.authservice.enums.Roles;
 import com.example.authservice.enums.SignInTypes;
-import com.example.authservice.repository.PermissionRepository;
 import com.example.authservice.repository.RoleRepository;
 import com.example.authservice.repository.SignInTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Component
