@@ -45,15 +45,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
-<<<<<<< HEAD
-=======
-
-        <!-- Actuator -->
->>>>>>> 521b5ee (refactor(docker) combine sevices to 1 register)
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>
