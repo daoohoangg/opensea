@@ -94,8 +94,15 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
+<<<<<<< HEAD
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+=======
+			<artifactId>spring-cloud-netflix-eureka-server</artifactId>
+			<version>4.1.1</version>
+		</dependency>
+
+>>>>>>> 521b5ee (refactor(docker) combine sevices to 1 register)
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>

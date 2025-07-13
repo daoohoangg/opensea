@@ -9,38 +9,20 @@
 ################################################################################
 
 # Create a stage for resolving and downloading dependencies.
-#FROM eclipse-temurin:21-jdk-jammy AS deps
-#
-#WORKDIR /build
-#
-## Copy the mvnw wrapper with executable permissions.
-#COPY --chmod=0755 mvnw mvnw
-#COPY .mvn/ .mvn/
-#
-## Download dependencies as a separate step to take advantage of Docker's caching.
-## Leverage a cache mount to /root/.m2 so that subsequent builds don't have to
-## re-download packages.
-#RUN --mount=type=bind,source=pom.xml,target=pom.xml \
-#    --mount=type=cache,target=/root/.m2 ./mvnw dependency:go-offline -DskipTests
+FROM eclipse-temurin:21-jdk-jammy as deps
 
-#Testing
-FROM eclipse-temurin:21-jdk-jammy AS base
 WORKDIR /build
+
+# Copy the mvnw wrapper with executable permissions.
 COPY --chmod=0755 mvnw mvnw
 COPY .mvn/ .mvn/
 
-FROM base AS test
-WORKDIR /build
-COPY ./src src/
+# Download dependencies as a separate step to take advantage of Docker's caching.
+# Leverage a cache mount to /root/.m2 so that subsequent builds don't have to
+# re-download packages.
 RUN --mount=type=bind,source=pom.xml,target=pom.xml \
-    --mount=type=cache,target=/root/.m2 \
-    ./mvnw test
+    --mount=type=cache,target=/root/.m2 ./mvnw dependency:go-offline -DskipTests
 
-FROM base AS deps
-WORKDIR /build
-RUN --mount=type=bind,source=pom.xml,target=pom.xml \
-    --mount=type=cache,target=/root/.m2 \
-    ./mvnw dependency:resolve -DskipTests
 ################################################################################
 
 # Create a stage for building the application based on the stage with downloaded dependencies.
@@ -49,7 +31,7 @@ RUN --mount=type=bind,source=pom.xml,target=pom.xml \
 # jar and instead relies on an application server like Apache Tomcat, you'll need to update this
 # stage with the correct filename of your package and update the base image of the "final" stage
 # use the relevant app server, e.g., using tomcat (https://hub.docker.com/_/tomcat/) as a base image.
-FROM deps AS package
+FROM deps as package
 
 WORKDIR /build
 
@@ -66,22 +48,13 @@ RUN --mount=type=bind,source=pom.xml,target=pom.xml \
 # the packaged application into separate layers that can be copied into the final stage.
 # See Spring's docs for reference:
 # https://docs.spring.io/spring-boot/docs/current/reference/html/container-images.html
-FROM package AS extract
+FROM package as extract
 
 WORKDIR /build
 
 RUN java -Djarmode=layertools -jar target/app.jar extract --destination target/extracted
 
 ################################################################################
-FROM extract AS development
-WORKDIR /build
-RUN cp -r /build/target/extracted/dependencies/. ./
-RUN cp -r /build/target/extracted/spring-boot-loader/. ./
-RUN cp -r /build/target/extracted/snapshot-dependencies/. ./
-RUN cp -r /build/target/extracted/application/. ./
-ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000
-CMD [ "java", "-Dspring.profiles.active=mysql", "org.springframework.boot.loader.launch.JarLauncher" ]
-
 
 # Create a new stage for running the application that contains the minimal
 # runtime dependencies for the application. This often uses a different base
@@ -114,6 +87,6 @@ COPY --from=extract build/target/extracted/spring-boot-loader/ ./
 COPY --from=extract build/target/extracted/snapshot-dependencies/ ./
 COPY --from=extract build/target/extracted/application/ ./
 
-EXPOSE 8090
+EXPOSE 9190
 
 ENTRYPOINT [ "java", "org.springframework.boot.loader.launch.JarLauncher" ]
