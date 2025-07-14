@@ -1,0 +1,36 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - build
+  - dockerize
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_IMAGE: $DOCKER_HUB_USER/vue-frontend:$CI_COMMIT_REF_SLUG
+
+before_script:
+  - apt-get update && apt-get install -y docker-compose
+  - echo "$DOCKER_HUB_TOKEN" | docker login -u "$DOCKER_HUB_USER" --password-stdin
+
+# Build Vue App
+build-vue:
+  stage: build
+  image: node:18
+  script:
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 hour
+
+# Build & Push Docker Image to Docker Hub
+dockerize:
+  stage: dockerize
+  script:
+    - docker build -t $DOCKER_IMAGE .
+    - docker push $DOCKER_IMAGE
