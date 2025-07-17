@@ -28,8 +28,7 @@ const handleCredentialResponse = async (response) => {
   try {
     const idToken = response.credential
     console.log(response.credential)
-    // const res = await axios.post('http://localhost:8090/api/v1/auth/registrationbygmail', { idToken })
-    const res = await axios.post(`http://${import.meta.env.DOMAIN}/api/v1/auth/registrationbygmail`, { idToken })
+    const res = await axios.post('http://localhost:8090/api/v1/auth/registrationbygmail', { idToken })
     statusMessage.value = 'Đăng nhập thành công: ' + res.data.email
   } catch (err) {
     console.error(err)

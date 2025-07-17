@@ -2,6 +2,7 @@ package com.example.authservice.controller;
 
 import com.example.authservice.dto.response.AccountResponse;
 import com.example.authservice.dto.response.ApiResponse;
+import com.example.authservice.dto.response.AuthenticationResponse;
 import com.example.authservice.service.AccountService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

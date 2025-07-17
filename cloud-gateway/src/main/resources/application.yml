@@ -3,11 +3,7 @@ server:
 
 spring:
   application:
-<<<<<<< HEAD
-    name: cloud-gateway
-=======
     name: CLOUD-GATEWAY
->>>>>>> 521b5ee (refactor(docker) combine sevices to 1 register)
   main:
     web-application-type: reactive
   cloud:

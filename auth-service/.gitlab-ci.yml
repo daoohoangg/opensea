@@ -1,0 +1,30 @@
+stages:
+  - build
+  - docker-build
+
+variables:
+  DOCKER_IMAGE_NAME: daoohoangg/auth-service
+  MAVEN_CLI_OPTS: "-B -Dmaven.test.skip=true"
+
+build:
+  stage: build
+  image: maven:3.9.6-eclipse-temurin-21
+  script:
+    - mvn clean install $MAVEN_CLI_OPTS
+  only:
+    - main
+
+docker-build:
+  stage: docker-build
+  image: docker:25.0.3
+  services:
+    - docker:25.0.3-dind
+  before_script:
+    - set -x
+  script:
+    - echo "$DOCKER_HUB_TOKEN" | docker login -u "$DOCKER_HUB_USER" --password-stdin
+    - export TAG=$(if [ "$CI_COMMIT_BRANCH" == "main" ]; then echo "latest"; else echo "$CI_COMMIT_BRANCH"; fi)
+    - docker build -t $DOCKER_IMAGE_NAME:$TAG .
+    - docker push $DOCKER_IMAGE_NAME:$TAG
+  only:
+    - main

@@ -94,8 +94,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<artifactId>spring-cloud-netflix-eureka-server</artifactId>
+			<version>4.1.1</version>
 		</dependency>
+
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
