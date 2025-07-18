@@ -7,4 +7,5 @@ import java.util.Map;
 
 public interface INFTService {
     Map<String, String> upload(NFTRequest nftRequest) throws Exception;
+
 }

@@ -16,6 +16,7 @@ public class CollectionService implements ICollectionService {
     IPFSUploadService ipfsUploadService;
     @Autowired
     CollectionRepository collectionRepository;
+    @Override
     public Map<String,String> createCollection(CollectionRequest collectionRequest) throws Exception {
         var result = ipfsUploadService.upload(collectionRequest);
         return result;

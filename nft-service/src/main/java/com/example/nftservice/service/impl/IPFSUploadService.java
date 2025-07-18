@@ -92,6 +92,12 @@ public class IPFSUploadService implements ICollectionService, INFTService {
                 "imageIpfs", imageIpfsUrl
         );
     }
+
+    @Override
+    public Map<String, String> createCollection(CollectionRequest collectionRequest) {
+        return null;
+    }
+
     private String uploadFileToPinata(MultipartFile file) throws Exception {
         File temp = convertToFile(file)/* throw new AppException(ErrorCode.INVALID_FILE)*/;
         MediaType mediaType = MediaType.parse("application/octet-stream");

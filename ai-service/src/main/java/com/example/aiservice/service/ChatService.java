@@ -4,6 +4,7 @@ import com.example.aiservice.dto.ChatRequest;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.content.Media;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,13 @@ public class ChatService implements IChatService {
                         .parseMimeType(multipartFile.getContentType()))
                 .data(multipartFile.getResource())
                 .build();
+
+        ChatOptions chatOptions = ChatOptions.builder()
+                .temperature(1D)
+                .build();
+
         return chatClient.prompt()
+                .options(chatOptions)
                 .system("chat bot of OpenNFT website trade NFT")
                 .user(promptUserSpec
                         -> promptUserSpec.media(media)

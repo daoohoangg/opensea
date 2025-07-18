@@ -5,6 +5,9 @@ spring:
   application:
     name: nft-service
 
+alchemy:
+  api-key: RWj4i30w-RXPqJCkGeGfmDEA3yMwr94d
+  network: polygon-amoy
 eureka:
   client:
     service-url:
