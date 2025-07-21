@@ -5,6 +5,7 @@
   <!-- <router-link to="/auth/login">Login</router-link> -->
   <!-- <ChartCoin/> -->
   <!-- <CoinChart/> -->
+   <CollectionBanner/>
   <CollectionsStatsRight />
   <Footer />
 </template>
@@ -15,6 +16,7 @@ import SearchBar from '@/composables/SearchBar.vue';
 import CollectionsStatsRight from '@/composables/CollectionsStatsRight.vue';
 import CategoryBar from '@/composables/CategoryBar.vue';
 import CoinChart from '@/components/nft-modal/NFTChart.vue';
+import CollectionBanner from '@/components/collection-modal/CollectionBanner.vue';
 // import ChartCoin from '@/composables/ChartCoin.vue';
 </script>
   
