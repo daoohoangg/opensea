@@ -1,13 +1,21 @@
 <template>
-  <NavBar />
-  <SearchBar />
-  <CategoryBar />
-  <!-- <router-link to="/auth/login">Login</router-link> -->
-  <!-- <ChartCoin/> -->
-  <!-- <CoinChart/> -->
-   <CollectionBanner/>
-  <CollectionsStatsRight />
-  <Footer />
+  <div class="min-h-screen flex flex-col bg-gray-100">
+    <SearchBar />
+    <CategoryBar />
+    <NavBar />
+    <div class="grid grid-cols-12 flex-1 pt-1">
+      <div class="col-span-1">
+        
+      </div>
+      <div class="col-span-8">
+        <CollectionBanner/>
+      </div>
+      <div class="col-span-3">
+        <CollectionsStatsRight />
+      </div>
+    </div>
+    <Footer />
+  </div>  
 </template>
 <script setup>
 import Footer from '@/composables/Footer.vue';
