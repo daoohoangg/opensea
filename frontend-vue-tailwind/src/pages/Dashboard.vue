@@ -3,14 +3,15 @@
     <SearchBar />
     <CategoryBar />
     <NavBar />
-    <div class="grid grid-cols-12 flex-1 pt-1">
+    
+    <div class="grid grid-cols-15 flex-1 pt-1">
       <div class="col-span-1">
         
       </div>
-      <div class="col-span-8">
+      <div class="col-span-10">
         <CollectionBanner/>
       </div>
-      <div class="col-span-3">
+      <div class="col-span-4">
         <CollectionsStatsRight />
       </div>
     </div>

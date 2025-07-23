@@ -1,9 +1,10 @@
 <template>
-  <div class="bg-[#131313] h-18 flex items-center">
+  <div class="bg-[#131313] h-18 items-center grid grid-cols-15">
+    <div class="col-span-1"></div>
     <!-- Ô search -->
     <div
       ref="searchBoxRef"
-      class="flex items-center bg-[#131313] border border-gray-600 rounded-md px-5 py-3 w-80 ml-60"
+      class=" items-center flex flex-row  bg-[#131313] border border-gray-600 rounded-md px-5 py-3 w-80 col-span-9"
       @click="showPopup = true"
       
     >
@@ -121,7 +122,7 @@
       </div>
     </div>
     </Transition>
-    <div class="flex flex-row justify-end items-end ">
+    <div class="flex flex-row justify-end items-end col-span-4">
       <div @click="showSignup = true"
       class="cursor-pointer text-white text-sm font-semibold flex flex-row">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

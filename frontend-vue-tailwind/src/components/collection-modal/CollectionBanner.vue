@@ -1,7 +1,7 @@
 <template>
-  <div class="relative w-full overflow-hidden">
+  <div class="relative w-full overflow-hidden bg-[#121212]">
     <!-- Main Banner -->
-    <div class="w-full h-[400px] relative">
+    <div class="w-full h-[400px] relative bg-[#121212]">
       <img
         src="@/assets/collectionBanner/10bbca634cc926484c84b1f476e7d845.jpg"
         alt="Azuki Elementals Banner"

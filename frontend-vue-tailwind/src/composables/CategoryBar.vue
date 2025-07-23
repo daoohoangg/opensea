@@ -1,7 +1,8 @@
 <template>
-  <div class="flex flex-col md:flex-row md:items-center md:justify-between bg-[#121212] p-4 text-white gap-4">
+  <div class="flex-col md:flex-row md:items-center md:justify-between bg-[#121212] py-4 text-white gap-4 grid grid-cols-15">
+    <div class="col-span-1"></div>
     <!-- Category Filters -->
-    <div class="flex gap-2 flex-wrap md:ml-56 justify-center">
+    <div class="flex gap-2 col-span-10">
       <button
         v-for="category in categories"
         :key="category"
@@ -18,7 +19,7 @@
     </div>
 
     <!-- Icon Filters -->
-    <div class="flex gap-2 items-center justify-center">
+    <div class="flex gap-2 items-center col-span-4">
       <button
         v-for="(icon, index) in iconFilters"
         :key="index"
