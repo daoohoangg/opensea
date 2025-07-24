@@ -4,7 +4,7 @@
     <!-- Ô search -->
     <div
       ref="searchBoxRef"
-      class=" items-center flex flex-row  bg-[#131313] border border-gray-600 rounded-md px-5 py-3 w-80 col-span-9"
+      class=" items-center flex flex-row  bg-[#131313] border border-gray-600 rounded-md px-5 py-3 w-80 h-10 col-span-9"
       @click="showPopup = true"
       
     >
