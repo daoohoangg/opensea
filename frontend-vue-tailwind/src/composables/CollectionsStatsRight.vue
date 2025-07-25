@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-end h-screen">
-    <div class=" bg-[#131313] p-4 w-full max-w-md text-white">
+    <div class=" bg-[#131313] p-4 w-full max-w text-white">
       <!-- Header -->
       <div class="flex items-start justify-between">
         <div class="flex space-x-2">

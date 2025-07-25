@@ -22,22 +22,23 @@ function toggleRight() {
 
     <main class="flex-1 pt-1 grid grid-cols-15">
       <div class="col-span-1"></div>
-      <section class="col-span-14">
+      <section class="col-span-13">
         <div class="grid grid-cols-12 flex-1">
-          <div :class="showRight ? 'col-span-8' : 'col-span-12'">
+          <div :class="showRight ? 'col-span-9' : 'col-span-12'">
             <CategoryBar :show-right="showRight" @toggle="toggleRight" />
             <div class="py-5">
               <CollectionBanner />
             </div>
           </div>
           <transition name="slide-out" mode="out-in" :key="showRight" >
-            <div v-if="showRight" class="col-span-4 transition-all duration-500 ease-in-out">
+            <div v-if="showRight" class="col-span-3 transition-all duration-500 ease-in-out w-full">
               <CollectionsStatsRight :show-right="showRight" @toggle="toggleRight" />
             </div>
           </transition>
           
         </div>
       </section>
+      <div class="col-span-1"></div>
     </main>
 
     <Footer />

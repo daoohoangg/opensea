@@ -18,7 +18,7 @@
     </div>
 
     <!-- Icon Filters -->
-    <div class="flex gap-2 items-center col-span-3">
+    <div class="flex gap-2 items-center col-span-3 justify-end">
       <button
         v-for="(icon, index) in iconFilters"
         :key="index"
