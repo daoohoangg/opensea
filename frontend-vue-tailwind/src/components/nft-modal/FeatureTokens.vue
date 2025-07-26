@@ -1,8 +1,8 @@
-<!-- components/FeaturedCollections.vue -->
+
 <template>
 <CollectionCard
-  title="Featured Collections"
-  subtitle="This week's curated collections"
+  title="Featured Tokens"
+  subtitle="This week's curated tokens"
 >
   <!-- Mobile: Scroll ngang -->
   <div

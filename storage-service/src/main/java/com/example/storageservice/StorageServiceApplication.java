@@ -1,4 +1,4 @@
-package com.example.nftservice;
+package com.example.storageservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class NftServiceApplication {
+public class StorageServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(NftServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(StorageServiceApplication.class, args);
+    }
 
 }

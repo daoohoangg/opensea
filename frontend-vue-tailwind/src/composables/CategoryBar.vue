@@ -1,13 +1,13 @@
 <template>
   <div class="flex-col md:flex-row md:items-center md:justify-between bg-[#121212] py-4 text-white grid grid-cols-15">
     <!-- Category Filters -->
-    <div class="flex gap-2 col-span-12">
+    <div class="flex gap-2 col-span-12 w-full overflow-hidden flex-nowrap md:flex-wrap">
       <button
         v-for="category in categories"
         :key="category"
         @click="selectCategory(category)"
         :class="[
-          'px-4 py-1 rounded-md border border-gray-600 text-sm',
+          'px-4 py-1 rounded-md border border-gray-600 text-sm shrink-0',
           selectedCategory === category
             ? 'bg-gray-100 text-black font-bold'
             : 'bg-transparent hover:bg-gray-800'
@@ -16,6 +16,7 @@
         {{ category }}
       </button>
     </div>
+
 
     <!-- Icon Filters -->
     <div class="flex gap-2 items-center col-span-3 justify-end">

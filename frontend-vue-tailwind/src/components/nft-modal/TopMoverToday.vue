@@ -1,10 +1,9 @@
-<!-- components/FeaturedCollections.vue -->
+
 <template>
 <CollectionCard
-  title="Featured Collections"
-  subtitle="This week's curated collections"
+  title="Top Movers Today"
+  subtitle="Largest floor price changes in the past day"
 >
-  <!-- Mobile: Scroll ngang -->
   <div
     class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-1 py-2 md:hidden"
   >
@@ -35,7 +34,6 @@
     </div>
   </div>
 
-  <!-- PC: Grid 4 cột -->
   <div 
     v-for="(item, index) in collections"
     :key="index"

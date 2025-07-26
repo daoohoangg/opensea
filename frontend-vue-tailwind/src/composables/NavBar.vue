@@ -1,6 +1,6 @@
 <!-- filepath: d:\Ky4\SpringBasic\Microservices\frontend-vue\src\composables\NavBar.vue -->
 <template>
-  <nav class="bg-[#141415] group fixed h-screen w-13 hover:w-45 transition-all duration-300  text-white flex flex-col font-medium z-3 space-y-2">
+  <nav class="bg-[#141415] group fixed h-screen w-13 hover:w-45 transition-all duration-300  text-white flex flex-col font-medium z-10 space-y-2">
     <div class="flex items-center p-4 space-x-2 space-y-2">
       <a href="/" class="flex">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 w-6 h-6">

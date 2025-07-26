@@ -1,10 +1,9 @@
-<!-- components/FeaturedCollections.vue -->
+
 <template>
 <CollectionCard
-  title="Featured Collections"
-  subtitle="This week's curated collections"
+  title="Featured Drops"
+  subtitle="This week's curated live and upcoming drops"
 >
-  <!-- Mobile: Scroll ngang -->
   <div
     class="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-1 py-2 md:hidden"
   >
@@ -35,7 +34,6 @@
     </div>
   </div>
 
-  <!-- PC: Grid 4 cột -->
   <div 
     v-for="(item, index) in collections"
     :key="index"
@@ -55,16 +53,16 @@
           <span v-if="item.verified" class="text-blue-400 text-sm">✔️</span>
         </h3>
         <p class="text-sm text-gray-300">
-          Floor price:
+          <span class="text-green-400 font-semibold border-1 rounded-md">MINTING NOW</span>
           <span class="text-white font-semibold">
             ${{ Number(item.floorPrice).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
           </span>
-          <span
+          <!-- <span
             :class="item.change >= 0 ? 'text-green-400' : 'text-red-400'"
             class="font-semibold"
           >
             {{ item.change >= 0 ? '+' : '' }}{{ item.change }}%
-          </span>
+          </span> -->
         </p>
       </div>
     </div>
