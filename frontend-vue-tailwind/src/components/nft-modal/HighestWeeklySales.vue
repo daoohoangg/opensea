@@ -21,7 +21,9 @@
 
       <!-- Right: NFT List -->
       <div class="hidden md:grid flex-1 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <div v-for="item in nftItems" :key="item.name" class="bg-black/20 rounded-lg overflow-hidden">
+        <div v-for="item in nftItems" :key="item.name" class="bg-black/20 rounded-lg overflow-hidden
+        hover:shadow-lg 
+         transition-transform duration-300 ease-in-out transform hover:scale-105">
           <img :src="item.image" :alt="item.name" class="w-full h-48 object-cover" />
           <div class="p-2">
             <p class="font-semibold">{{ item.name }}</p>

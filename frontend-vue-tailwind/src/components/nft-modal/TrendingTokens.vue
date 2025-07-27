@@ -1,7 +1,7 @@
 <template>
   <section class="w-full overflow-x-auto select-none">
     <h2 class="text-2xl font-semibold mb-1">Trending Tokens</h2>
-    <p class="text-lg text-gray-400 mb-4 ">Largest price change in the past day</p>
+    <p class="text-lg text-gray-400 mb-4 ">Largest price change in the past hour</p>
 
     <div
     class="grid grid-flow-col grid-rows-2 gap-4 snap-x snap-mandatory scroll-smooth px-2 cursor-grab active:cursor-grabbing"
@@ -61,30 +61,6 @@ const trendingData = [
     sparkline: '/images/spark-down.svg',
   },
   
-  {
-    image: '/images/startup.png',
-    name: 'Startup',
-    symbol: 'STARTUP',
-    priceDisplay: '$0.03',
-    change: 45.5,
-    sparkline: '/images/spark-down.svg',
-  },
-  {
-    image: '/images/startup.png',
-    name: 'Startup',
-    symbol: 'STARTUP',
-    priceDisplay: '$0.03',
-    change: 45.5,
-    sparkline: '/images/spark-down.svg',
-  },
-  {
-    image: '/images/startup.png',
-    name: 'Startup',
-    symbol: 'STARTUP',
-    priceDisplay: '$0.03',
-    change: 45.5,
-    sparkline: '/images/spark-down.svg',
-  },
   {
     image: '/images/startup.png',
     name: 'Startup',

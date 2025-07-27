@@ -1,5 +1,16 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
+
+const showRight = ref(true)
+
+function toggleRight() {
+  showRight.value = !showRight.value
+}
+
+const route = useRoute()
+const showOnlyMain2 = ['/stats']
+const onlyMain2 = computed(() => showOnlyMain2.includes(route.path))
 
 import Footer from '@/composables/Footer.vue';
 import NavBar from '@/composables/NavBar.vue';
@@ -14,11 +25,11 @@ import FeaturedTokens from '@/components/nft-modal/FeatureTokens.vue';
 import TrendingTokens from '@/components/nft-modal/TrendingTokens.vue';
 import TrendingCollections from '@/components/nft-modal/TrendingCollections.vue';
 import HighestWeeklySales from '@/components/nft-modal/HighestWeeklySales.vue';
-const showRight = ref(true)
+import Nft101 from '@/components/nft-modal/Nft101.vue';
 
-function toggleRight() {
-  showRight.value = !showRight.value
-}
+import Stats from '@/components/stats-modal/Stats.vue';
+
+
 </script>
 
 <template>
@@ -31,8 +42,8 @@ function toggleRight() {
       <SearchBar />
     </div>
     
-
-    <main class="grid grid-cols-15 md:grid-cols-15">
+    <div v-if="!onlyMain2">
+      <main class="grid grid-cols-15 md:grid-cols-15">
       <div class="col-span-1 md:col-span-1"></div>
       <section class="col-span-14 md:col-span-13">
         <div class="grid grid-cols-1 md:grid-cols-12 flex-1">
@@ -62,12 +73,12 @@ function toggleRight() {
                 <TrendingCollections />
 
                 <HighestWeeklySales />
+
+                <Nft101 />
                </div>
                 
             </div>
           </div>
-
-          <!-- 👉 CollectionsStatsRight hiển thị bên phải trên desktop -->
           <transition name="slide-out" mode="out-in" :key="showRight">
             <div
               v-if="showRight"
@@ -82,8 +93,14 @@ function toggleRight() {
       </section>
 
       <div class="md:col-span-1"></div>
+      </main>
+    </div>
+    <main v-if="onlyMain2">
+      <div><Stats/></div>
+      
     </main>
 
+      
     <Footer />
   </div>
 </template>

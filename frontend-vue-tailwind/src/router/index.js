@@ -8,20 +8,18 @@ import FormCreateCollection from '@/layouts/createform/FormCreateCollection.vue'
 import FormCreateNFT from '@/layouts/createform/FormCreateNFT.vue';
 import StudioLayout from '@/pages/StudioLayout.vue';
 import DropNFTs from '@/layouts/createform/DropNFTs.vue';
+import Stats from '@/components/stats-modal/Stats.vue';
 
 
 const routes = [
   {
     path: '/',
-    component: Dashboard
-  },
-  {
-    path: '/auth',
-    component: AuthLayout,
+    component: Dashboard,
+    name: 'dashboard',
     children: [
       {
-        path: '/login', // => /auth/login
-        component: Login
+        path: 'stats',
+        component: Stats
       }
     ]
   },
