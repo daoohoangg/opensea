@@ -29,7 +29,7 @@ import Nft101 from '@/components/nft-modal/Nft101.vue';
 
 import Stats from '@/components/stats-modal/Stats.vue';
 
-
+import ChatBot from '@/components/ai-chat-modal/ChatBot.vue'
 </script>
 
 <template>
@@ -100,7 +100,7 @@ import Stats from '@/components/stats-modal/Stats.vue';
       
     </main>
 
-      
+      <ChatBot />
     <Footer />
   </div>
 </template>

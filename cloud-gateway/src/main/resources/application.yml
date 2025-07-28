@@ -33,7 +33,12 @@ spring:
             - Path=/api/v1/auth/**
           filters:
             - StripPrefix=3
-
+        - id: AI-SERVICE
+          uri: lb://AI-SERVICE
+          predicates:
+            - Path=/api/v1/ai/**
+          filters:
+            - StripPrefix=3
     discovery:
       enabled: true
       locator:
