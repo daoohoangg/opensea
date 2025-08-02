@@ -2,7 +2,7 @@ server:
   port: 8085
 spring:
   application:
-    name: demoSpringAi
+    name: ai-service
   ai:
     openai:
       api-key: ${GEMINI_KEY}
