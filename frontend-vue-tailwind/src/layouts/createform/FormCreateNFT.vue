@@ -52,7 +52,7 @@
       <!-- Supply -->
       <div>
         <label class="block font-medium mb-2">Supply*</label>
-        <input v-model="form.name" class="w-full border rounded p-2" required />
+        <input v-model="form.supply" class="w-full border rounded p-2" required />
       </div>
 
       <!-- Description -->
@@ -135,7 +135,7 @@ const loading = ref(true)
 
 onMounted(async () => {
   try {
-    const res = await axios.get('http://localhost:8083/api/v1/get-collections')
+    const res = await axios.get('http://localhost:8083/api/v1/nft/get-collections')
     collectionsName.value = res.data.result 
   } catch (err) {
     console.error('Error fetching collections:', err)

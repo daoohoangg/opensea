@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -42,13 +43,13 @@ public class IPFSUploadService implements ICollectionService, INFTService {
 
         // 2. Create metadata
         NFTMetadata metadata = new NFTMetadata();
-        metadata.name = nftRequest.getName();
-        metadata.description = nftRequest.getDescription();
-        metadata.image = imageIpfsUrl;
+        metadata.setName(nftRequest.getName());
+        metadata.setDescription(nftRequest.getDescription());
+        metadata.setImageUrl(imageIpfsUrl);
 
         if (nftRequest.getAttributesJson() != null && !nftRequest.getAttributesJson().isEmpty()) {
-            Map<String, String>attrs = objectMapper.readValue(nftRequest.getAttributesJson(), Map.class);
-            metadata.traits = attrs;
+            Map<String, Object>attrs = objectMapper.readValue(nftRequest.getAttributesJson(), Map.class);
+            metadata.setTraits(attrs);
         }
 
         // 3. Upload metadata to Pinata
@@ -67,13 +68,15 @@ public class IPFSUploadService implements ICollectionService, INFTService {
 
         // 2. Create metadata
         CollectionMetadata metadata = new CollectionMetadata();
-        metadata.name = collectionRequest.getName();
-        metadata.blockchain = collectionRequest.getBlockchain();
-        metadata.image = imageIpfsUrl;
-        metadata.symbols = collectionRequest.getSymbols();
-        metadata.contractAddress = collectionRequest.getContractAddress();
-        metadata.ownerwalletAddress = collectionRequest.getOwnerwalletAddress();
-
+        metadata.setContractAddress(collectionRequest.getContractAddress());
+        metadata.setName(collectionRequest.getName());
+        metadata.setSymbol(collectionRequest.getSymbols());
+        metadata.setDescription(collectionRequest.getDescription());
+        metadata.setBlockchain(collectionRequest.getBlockchain());
+        metadata.setImageUrl(imageIpfsUrl);
+        metadata.setBlockchain("MATIC");
+        metadata.setCreatedAt(LocalDate.now());
+        //updatedDate
         // 3. Upload metadata to Pinata
         String metadataHash = uploadJsonToPinata(metadata);
         String tokenUri = "ipfs://" + metadataHash;

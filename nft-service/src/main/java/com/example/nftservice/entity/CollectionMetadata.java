@@ -5,17 +5,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "collection-metadata")
 public class CollectionMetadata {
-    public String name;
-    public String description;
-    public String image;
-    public String blockchain;
-    public String symbols;
-    public String category;
-    public String contractAddress;
-    public String ownerwalletAddress;
+    private String contractAddress;
+    private String name;
+    private String symbol;
+    private String description;
+    private String imageUrl;
+    private String creatorAddress;
+    private String blockchain;
+    private Long deployedBlock;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 }

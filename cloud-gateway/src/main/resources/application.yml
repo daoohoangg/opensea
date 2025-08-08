@@ -20,25 +20,25 @@ spring:
             allowedMethods: "*"
             allowedHeaders: "*"
       routes:
-        - id: NFT-SERVICE
-          uri: lb://NFT-SERVICE
+        - id: nft-service
+          uri: lb://nft-service
           predicates:
             - Path=/api/v1/nft/**
           filters:
-            - StripPrefix=3
 
-        - id: AUTH-SERVICE
-          uri: lb://AUTH-SERVICE
+
+        - id: auth-service
+          uri: lb://auth-service
           predicates:
             - Path=/api/v1/auth/**
           filters:
-            - StripPrefix=3
-        - id: AI-SERVICE
-          uri: lb://AI-SERVICE
+
+        - id: ai-service
+          uri: lb://ai-service
           predicates:
             - Path=/api/v1/ai/**
           filters:
-            - StripPrefix=3
+
     discovery:
       enabled: true
       locator:

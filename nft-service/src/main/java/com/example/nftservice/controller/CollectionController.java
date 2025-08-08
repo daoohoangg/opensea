@@ -18,6 +18,11 @@ public class CollectionController {
     @Autowired
     NFTService nftService;
 
+    @GetMapping("/api/test")
+    public String test(@RequestHeader("X-User-Id") String userId,
+                       @RequestHeader("X-User-Roles") String roles) {
+        return "Hello " + userId + " with roles " + roles;
+    }
     @GetMapping("/get-collections")
     public ApiResponse<List> getAllCollection(){
         var result = collectionService.getAllCollectionName();

@@ -15,5 +15,7 @@ public class CollectionRequest {
     String blockchain;
     String contractAddress;
     String ownerwalletAddress;
+    String description;
+
 //    MultipartFile banner;
 }
