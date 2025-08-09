@@ -12,13 +12,17 @@ spring:
         locator:
           enabled: true
       default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin PreserveHostHeader
       globalcors:
         corsConfigurations:
           '[/**]':
             allowedOrigins: "*"
             allowedMethods: "*"
-            allowedHeaders: "*"
+            allowedHeaders:
+              - X-User-Id
+              - X-User-Roles
+              - Content-Type
+              - Authorization
       routes:
         - id: nft-service
           uri: lb://nft-service

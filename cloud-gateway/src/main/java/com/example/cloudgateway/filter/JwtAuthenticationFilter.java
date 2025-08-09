@@ -45,7 +45,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
                     .getBody();
 
             String username = claims.getSubject();
-            String roles = claims.get("roles", String.class);
+            String roles = claims.get("scope", String.class);
 
             // Thêm header nội bộ để gửi xuống service phía dưới
             exchange = exchange.mutate()
@@ -54,7 +54,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
                         headers.add("X-User-Roles", roles);
                     }))
                     .build();
-
+            System.out.println("JWT parsed: " + username + " - " + roles);
         } catch (Exception e) {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();

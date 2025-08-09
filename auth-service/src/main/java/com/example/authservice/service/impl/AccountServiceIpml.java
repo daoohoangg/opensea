@@ -25,6 +25,8 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -81,7 +83,7 @@ public class AccountServiceIpml implements AccountService{
         var token = authenticationService.generateToken(account);
         //thieu profile mapper
 //        return accountMapper.toAccountResponse(account);
-        return AuthenticationResponse.builder().token(token).build();
+        return AuthenticationResponse.builder().token(token).walletAddress(account.getWalletAddress()).authenticated(true).build();
     }
 
     //dang nhap bang gmail
@@ -163,6 +165,7 @@ public class AccountServiceIpml implements AccountService{
 
         return AuthenticationResponse.builder().token(token).build();
     }
+
     //    xem thong tin tai khoan
     public AccountResponse getMyInfo() {
         var context = SecurityContextHolder.getContext();

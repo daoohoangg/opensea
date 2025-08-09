@@ -97,9 +97,9 @@
           </svg>
         </a>
         <ul class="dropdown-menu pl-8 pb-5 space-y-2 font-medium" v-if="dropdowns.resources">
-          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="#learn" class="hidden group-hover:inline">Learn</a></li>
-          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="#helpcenter" class="hidden group-hover:inline">Help Center</a></li>
-          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="#taxresources" class="hidden group-hover:inline">Tax Resources</a></li>
+          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="learn" class="hidden group-hover:inline">Learn</a></li>
+          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="helpcenter" class="hidden group-hover:inline">Help Center</a></li>
+          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="taxresources" class="hidden group-hover:inline">Tax Resources</a></li>
         </ul>
       </li>
       <li class="dropdown flex flex-end flex-col items-center space-x-3 hover:bg-gray-900 rounded-md pl-2.5 pt-2 cursor-pointer transition-colors" @click="toggleDropdown('settings')">
@@ -114,12 +114,12 @@
           </svg>
         </a>
         <ul class="dropdown-menu pl-8  space-y-0.5 font-medium" v-if="dropdowns.settings">
-          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="#profile" class="hidden group-hover:inline">Profile</a></li>
-          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="#emailnotify" class="hidden group-hover:inline">Email Notifications</a></li>
-          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="#developer" class="hidden group-hover:inline">Developer</a></li>
-          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="#verification" class="hidden group-hover:inline">Verification</a></li>
+          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="profile" class="hidden group-hover:inline">Profile</a></li>
+          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="emailnotify" class="hidden group-hover:inline">Email Notifications</a></li>
+          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="developer" class="hidden group-hover:inline">Developer</a></li>
+          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="verification" class="hidden group-hover:inline">Verification</a></li>
           <li class="hover:bg-gray-900 hover:rounded-sm"><a href="#language" class="hidden group-hover:inline">Language</a></li>
-          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="#tokens" class="hidden group-hover:inline">Tokens</a></li>
+          <li class="hover:bg-gray-900 hover:rounded-sm"><a href="#shortcuts" class="hidden group-hover:inline">Shortcuts</a></li>
         </ul>
       </li>
       <li class="flex items-center space-x-3 hover:bg-gray-900 rounded-md pl-2.5 pt-2 cursor-pointer transition-colors" @click="chatStore.toggle()"><div class="group flex item-center space-y-3 space-x-2 hover:text-white">
@@ -128,13 +128,6 @@
         </svg>
         <span class="hidden group-hover:inline">Support</span>
         </div>
-      </li>
-      <li class="flex items-center space-x-3 hover:bg-gray-900 rounded-md pl-2.5 pt-2 cursor-pointer transition-colors"><a href="#backto" class="group flex item-center space-y-3 space-x-2 hover:text-white ">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7 w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-        </svg>
-        <span class="hidden group-hover:inline">Back to OS1</span>
-        </a>
       </li>
     </ul>
   </nav>

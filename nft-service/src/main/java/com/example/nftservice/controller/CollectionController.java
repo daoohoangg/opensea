@@ -19,8 +19,8 @@ public class CollectionController {
     NFTService nftService;
 
     @GetMapping("/api/test")
-    public String test(@RequestHeader("X-User-Id") String userId,
-                       @RequestHeader("X-User-Roles") String roles) {
+    public String test(@RequestHeader(value="X-User-Id" , required= false) String userId,
+                       @RequestHeader(value="X-User-Roles" , required= false) String roles) {
         return "Hello " + userId + " with roles " + roles;
     }
     @GetMapping("/get-collections")

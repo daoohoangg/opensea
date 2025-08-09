@@ -43,7 +43,7 @@ import java.util.UUID;
 public class AuthenticationServiceImpl implements AuthenticationService {
     AccountRepository accountRepository;
     InvaildatedTokenRepository invaildatedTokenRepository;
-
+    JwtTokenService jwtTokenService;
     @NonFinal
     @Value("${jwt.signerKey}")
     protected String SIGNER_KEY;
@@ -70,7 +70,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         var token = generateToken(user);
 
-        return AuthenticationResponse.builder().token(token).authenticated(true).build();
+        return AuthenticationResponse.builder().token(token).walletAddress(user.getWalletAddress()).authenticated(true).build();
     }
     //    tao token jwt
     @Override
@@ -79,16 +79,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                 //xac dinh tai khoan dang nhap
-                .subject(user.getUsername())
                 .subject(user.getWalletAddress())
                 //domain-service
                 .issuer("auth-service")
                 .issueTime(new Date())
                 .expirationTime(new Date(Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()))
                 .jwtID(UUID.randomUUID().toString())
-                //cusstom JWT
+//                IMPORTANTcusstom JWT and value of claim in here
                 .claim("scope",buildScope(user))
-
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
@@ -96,6 +94,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         JWSObject jwsObject = new JWSObject(header,payload);
         try {
             jwsObject.sign(new MACSigner(SIGNER_KEY.getBytes()));
+            //save jwt token to redis
+            long expirationTimeMillis = jwtClaimsSet.getExpirationTime().getTime();
+            jwtTokenService.storeToken(jwsObject.serialize(), user.getUsername(), expirationTimeMillis);
             return jwsObject.serialize();
         } catch(JOSEException e){
             log.error("Can not create tole",  e);
@@ -130,7 +131,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .id(jit)
                 .expiryTime(expiryTime)
                 .build();
-
+        jwtTokenService.revokeToken(request.getToken());
         invaildatedTokenRepository.save(invalidatedToken);
     }
 
@@ -155,6 +156,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         );
 
         var token = generateToken(user);
+//        save refresh token in redis
+        long expirationTimeMillis = signedJWT.getJWTClaimsSet().getExpirationTime().getTime();
+        jwtTokenService.storeRefreshToken(user.getUsername(),token,expirationTimeMillis);
 
         return AuthenticationResponse.builder()
                 .token(token)
