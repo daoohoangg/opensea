@@ -34,73 +34,61 @@ import ChatBot from '@/components/ai-chat-modal/ChatBot.vue'
 
 <template>
   <div class="min-h-screen flex flex-col bg-black-100">
-    <div class="top-0 left-0 w-full z-50">
+    <!-- Navbar + SearchBar cố định trên đầu -->
+    <div class="fixed top-0 left-0 w-full z-50 bg-black-100">
       <NavBar />
-    </div>
-
-    <div class="top-0 left-0 w-full z-50">
       <SearchBar />
-    </div>
-    
-    <div v-if="!onlyMain2">
-      <main class="grid grid-cols-15 md:grid-cols-15">
-      <div class="col-span-1 md:col-span-1"></div>
-      <section class="col-span-14 md:col-span-13">
-        <div class="grid grid-cols-1 md:grid-cols-12 flex-1">
-          <!-- Phần chính -->
-          <div :class="showRight ? 'col-span-1 md:col-span-9' : 'col-span-1 md:col-span-12'">
-            <CategoryBar :show-right="showRight" @toggle="toggleRight" />
-
-            <div class="py-5">
-              <!-- CollectionBanner -->
-              <CollectionBanner />
-
-              <!-- 👉 CollectionsStatsRight hiển thị trên mobile -->
-              <div class="block md:hidden max-h-[30vh] py-4 overflow-y-auto">
-                <CollectionsStatsRight :show-right="showRight" @toggle="toggleRight" />
-              </div>
-
-              <!-- FeaturedCollection -->
-               <div class="pl-5 md:pl-0 space-y-2">
-                <FeaturedCollection />
-                <FeaturedDrops />
-
-                <TrendingTokens />
-                
-                <TopMoverToday />
-                <FeaturedTokens />
-
-                <TrendingCollections />
-
-                <HighestWeeklySales />
-
-                <Nft101 />
-               </div>
-                
-            </div>
-          </div>
-          <transition name="slide-out" mode="out-in" :key="showRight">
-            <div
-              v-if="showRight"
-              class="hidden md:block col-span-1 md:col-span-3 w-full overflow-y-auto max-h-[30vh] md:max-h-none transition-all duration-500 ease-in-out"
-            >
-              <div class="relative top-0 left-0 w-full z-50">
-                <CollectionsStatsRight :show-right="showRight" @toggle="toggleRight" />
-              </div>
-            </div>
-          </transition>
-        </div>
-      </section>
-
-      <div class="md:col-span-1"></div>
-      </main>
-    </div>
-    <main v-if="onlyMain2">
-      <div><Stats/></div>
       
-    </main>
+    </div>
 
-      <ChatBot />
+    <!-- Spacer đẩy nội dung xuống tránh bị che -->
+    <div class="h-[70px]"></div>
+
+    <div v-if="!onlyMain2" class="flex flex-1 overflow-hidden">
+      <!-- Nội dung chính scroll -->
+      <main
+        :class="showRight ? 'flex-1 max-h-[calc(100vh-96px)] overflow-y-auto' : 'flex-1 max-h-[calc(100vh-96px)] overflow-y-auto px-6'"
+        class="px-4"
+      > 
+        <div :class="[
+          'fixed z-10 left-0 right-0 transition-all duration-300 ease-in-out',
+          showRight ? 'w-5/6' : 'w-full'
+        ]">
+          <CategoryBar :show-right="showRight" @toggle="toggleRight" />
+        </div>
+        <div class="h-[70px]"></div>
+        <CollectionBanner />
+
+        <!-- CollectionsStatsRight trên mobile -->
+        <div class="block md:hidden max-h-[30vh] py-4 overflow-y-auto">
+          <CollectionsStatsRight :show-right="showRight" @toggle="toggleRight" />
+        </div>
+
+        <!-- Nội dung chính scroll được -->
+        <div class="pl-5 md:pl-0 space-y-2">
+          <FeaturedCollection />
+          <FeaturedDrops />
+          <TrendingTokens />
+          <TopMoverToday />
+          <FeaturedTokens />
+          <TrendingCollections />
+          <HighestWeeklySales />
+          <Nft101 />
+        </div>
+      </main>
+
+      <!-- Sidebar phải CollectionsStatsRight cố định sticky -->
+      <transition name="slide-out" mode="out-in" :key="showRight">
+        <div
+          v-if="showRight"
+          class="hidden md:block sticky top-[96px] h-[calc(100vh-96px)] w-64 overflow-auto transition-all duration-500 ease-in-out"
+        >
+          <CollectionsStatsRight :show-right="showRight" @toggle="toggleRight" />
+        </div>
+      </transition>
+    </div>
+
+    <ChatBot />
     <Footer />
   </div>
 </template>
@@ -114,6 +102,7 @@ import ChatBot from '@/components/ai-chat-modal/ChatBot.vue'
 .slide-out-enter-from {
   transform: translateX(100%);
 }
+
 .slide-out-enter-to {
   transform: translateX(0%);
 }
@@ -121,10 +110,8 @@ import ChatBot from '@/components/ai-chat-modal/ChatBot.vue'
 .slide-out-leave-from {
   transform: translateX(0%);
 }
+
 .slide-out-leave-to {
   transform: translateX(100%);
 }
 </style>
-
-
-
