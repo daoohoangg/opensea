@@ -95,8 +95,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         try {
             jwsObject.sign(new MACSigner(SIGNER_KEY.getBytes()));
             //save jwt token to redis
-            long expirationTimeMillis = jwtClaimsSet.getExpirationTime().getTime();
-            jwtTokenService.storeToken(jwsObject.serialize(), user.getUsername(), expirationTimeMillis);
+//            long expirationTimeMillis = jwtClaimsSet.getExpirationTime().getTime();
+//            jwtTokenService.storeToken(jwsObject.serialize(), user.getUsername(), expirationTimeMillis);
             return jwsObject.serialize();
         } catch(JOSEException e){
             log.error("Can not create tole",  e);
@@ -157,8 +157,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         var token = generateToken(user);
 //        save refresh token in redis
-        long expirationTimeMillis = signedJWT.getJWTClaimsSet().getExpirationTime().getTime();
-        jwtTokenService.storeRefreshToken(user.getUsername(),token,expirationTimeMillis);
+//        long expirationTimeMillis = signedJWT.getJWTClaimsSet().getExpirationTime().getTime();
+//        jwtTokenService.storeRefreshToken(user.getUsername(),token,expirationTimeMillis);
 
         return AuthenticationResponse.builder()
                 .token(token)

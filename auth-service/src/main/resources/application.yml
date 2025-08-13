@@ -4,6 +4,13 @@ server:
 spring:
   application:
     name: auth-service
+#  data:
+#    redis:
+#      host: localhost   # Hoặc tên container nếu dùng Docker
+#      port: 6379
+#      password: ""      # Nếu không có password thì để trống
+#      timeout: 2000     # timeout (ms)
+
 eureka:
   client:
     service-url:

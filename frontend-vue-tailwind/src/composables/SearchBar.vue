@@ -123,13 +123,14 @@
     </div>
     </Transition>
     <div class="flex flex-row justify-end items-end col-span-4">
-      <div @click="showSignup = true"
+      <div @click="showSignup = true" v-if="!isLoggedIn"
       class="cursor-pointer text-white text-sm font-semibold flex flex-row">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3" />
         </svg>
         <p class="ml-1">Connect Wallet</p>
       </div>
+      <div v-else class="text-white">{{ addressWallet?.slice(0,4) }} ... {{ addressWallet?.slice(-2) }}</div>
       <div class="text-white mb-0.5 font-light px-1">|</div>
       <div @click="showSignup = true"
       class="cursor-pointer text-white"
@@ -146,8 +147,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-import PopUpAccount from './loginmethods/PopUpAccount.vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import PopUpAccount from './loginmethods/PopUpAccount.vue';
 
 //khung search
 const showPopup = ref(false)
@@ -190,6 +191,20 @@ function handleClickOutside(event) {
     showSignup.value = false
   }
 }
+
+const isLoggedIn = ref(false) // trạng thái đăng nhập
+const addressWallet =ref(null)
+onMounted(() => {
+  // Kiểm tra localStorage
+  const user = localStorage.getItem('auth_token') // hoặc token / walletAddress
+  const address = localStorage.getItem('wallet_address')
+  if (user) {
+    isLoggedIn.value = true
+    addressWallet.value = address
+  }
+  
+  
+})
 
 </script>
 

@@ -20,7 +20,7 @@
           </label>
           <input
             v-model="email"
-            type="email"
+            type="text"
             placeholder="name@email.com"
             class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500"
             required
@@ -95,17 +95,46 @@ import { ref } from 'vue';
 import GmailAccount from './GmailAccount.vue';
 import MetamaskAccount from './MetamaskAccount.vue';
 import WalletMoblieAccount from './WalletMoblieAccount.vue';
+import axios from 'axios';
 
-const email = ref('');
-const password = ref('');
+const email = ref('')
+const password = ref('')
 const showPassword = ref(false);
+
+const token = ref('');
+const walletAddress = ref('');
 
 const toggleShowPassword = () => {
   showPassword.value = !showPassword.value;
 };
 
-const handleLogin = () => {
-  alert(`Email: ${email.value}, Password: ${password.value}`);
+const handleLogin = async () => {
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/v1/auth/log-in`,
+      {
+        username: email.value,  // email va passwornd duoc bind tren form bang v-modal can khai bao lai
+        password: password.value
+      }
+    );
+
+
+
+    if (token && walletAddress) {
+      localStorage.setItem('auth_token', res.data.result.token);
+      localStorage.setItem('wallet_address', res.data.result.walletAddress);
+      // console.log(res.data.result.token);
+      // console.log(res.data.result.walletAddress);
+      alert('Login successful!');
+    } else {
+      alert('Login failed: missing token or walletAddress');
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert('Login failed!');
+  }
 };
+
 
 </script>
