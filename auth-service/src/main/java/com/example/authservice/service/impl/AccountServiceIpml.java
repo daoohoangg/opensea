@@ -24,7 +24,9 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -50,6 +52,13 @@ public class AccountServiceIpml implements AccountService{
     VerifyServices verifyServices;
 
     private final String GOOGLE_CLIENT_ID = "10942482793-kuln1t6m8band0acdojiudnelr00h0ta.apps.googleusercontent.com";
+    @NonFinal
+    @Value("${jwt.access-token-duration}")
+    protected long VALID_DURATION;
+
+    @NonFinal
+    @Value("${jwt.refresh-token-duration}")
+    protected long REFRESHABLE_DURATION;
     PasswordEncoder passwordEncoderBCrypt = new BCryptPasswordEncoder(10);
 
     public AccountResponse createAccount(AccountCreationRequest accountCreationRequest) {
@@ -80,10 +89,16 @@ public class AccountServiceIpml implements AccountService{
             //can generate JWT o buoc nay de luu thong tin dang nhap
         }
 
-        var token = authenticationService.generateToken(account);
+        var accessToken = authenticationService.generateToken(account,VALID_DURATION,"accessToken");
+        var refreshToken = authenticationService.generateToken(account,REFRESHABLE_DURATION, "refreshToken");
         //thieu profile mapper
 //        return accountMapper.toAccountResponse(account);
-        return AuthenticationResponse.builder().token(token).walletAddress(account.getWalletAddress()).authenticated(true).build();
+        return AuthenticationResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .walletAddress(account.getWalletAddress())
+                .authenticated(true)
+                .build();
     }
 
     //dang nhap bang gmail
@@ -126,9 +141,14 @@ public class AccountServiceIpml implements AccountService{
         } catch (GeneralSecurityException | IOException e) {
             e.printStackTrace(); // hoặc log.error(...)
         }
-        var token = authenticationService.generateToken(account);
+        var accessToken = authenticationService.generateToken(account,VALID_DURATION,"accessToken");
+        var refreshToken = authenticationService.generateToken(account,REFRESHABLE_DURATION, "refreshToken");
 
-        return AuthenticationResponse.builder().token(token).build();
+
+        return AuthenticationResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
     /**
@@ -161,9 +181,13 @@ public class AccountServiceIpml implements AccountService{
 
         }
 
-        var token = authenticationService.generateToken(account);
+        var accessToken = authenticationService.generateToken(account,VALID_DURATION,"accessToken");
+        var refreshToken = authenticationService.generateToken(account,REFRESHABLE_DURATION, "refreshToken");
 
-        return AuthenticationResponse.builder().token(token).build();
+        return AuthenticationResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
     //    xem thong tin tai khoan

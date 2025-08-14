@@ -28,6 +28,7 @@ public class Account {
     Set<Role> roles;
     @ManyToMany(fetch = FetchType.EAGER)
     Set<SignInType> signInTypes;
+
 }
 
 

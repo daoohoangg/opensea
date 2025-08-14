@@ -82,9 +82,10 @@ public class AuthenticationController {
     }
     // dang xuat xoa trong cookies
     @PostMapping("/logout")
-    ApiResponse<Void> logout(@RequestBody LogoutRequest request)
+    ApiResponse<Void> logout(@RequestHeader("Authorization") String authorizationHeader)
             throws ParseException, JOSEException {
-        authenticationService.logout(request);
+        String token = authorizationHeader.replace("Bearer ", "").trim();
+        authenticationService.logout(token);
         return ApiResponse.<Void>builder()
                 .build();
     }

@@ -31,7 +31,8 @@ public class ApplicationConfig implements WebMvcConfigurer {
         registry.addMapping("/api/v1/auth/**") // hoặc "/*" nếu bạn dùng nhiều endpoint
                 .allowedOrigins("http://localhost:5173") // port frontend
                 .allowedMethods("*")
-                .allowedHeaders("*");
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
     PasswordEncoder passwordEncoder;
     RoleRepository roleRepository;

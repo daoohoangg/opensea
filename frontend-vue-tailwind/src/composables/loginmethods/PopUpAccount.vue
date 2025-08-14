@@ -108,23 +108,29 @@ const toggleShowPassword = () => {
   showPassword.value = !showPassword.value;
 };
 
+// login
 const handleLogin = async () => {
   try {
     const res = await axios.post(
       `${import.meta.env.VITE_BASE_URL}/v1/auth/log-in`,
       {
-        username: email.value,  // email va passwornd duoc bind tren form bang v-modal can khai bao lai
+        username: email.value,
         password: password.value
+      },
+      {
+        withCredentials: true // cho phép gửi/nhận cookie HTTP-Only
       }
     );
 
+    const accessToken = res.data?.result?.accessToken;
+    const refreshToken = res.data?.result?.refreshToken;
+    const walletAddr = res.data?.result?.walletAddress;
 
-
-    if (token && walletAddress) {
-      localStorage.setItem('auth_token', res.data.result.token);
-      localStorage.setItem('wallet_address', res.data.result.walletAddress);
-      // console.log(res.data.result.token);
-      // console.log(res.data.result.walletAddress);
+    if (accessToken && walletAddr && refreshToken) {
+      localStorage.setItem('access_token', accessToken);
+      localStorage.setItem('refresh_token', refreshToken);
+      localStorage.setItem('wallet_address', walletAddr);
+      router.push('/')
       alert('Login successful!');
     } else {
       alert('Login failed: missing token or walletAddress');
