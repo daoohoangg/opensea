@@ -38,7 +38,7 @@ import ChatBot from '@/components/ai-chat-modal/ChatBot.vue'
     <div class="fixed top-0 left-0 w-full z-50 bg-black-100">
       <NavBar />
       <SearchBar />
-      
+
     </div>
 
     <!-- Spacer đẩy nội dung xuống tránh bị che -->
@@ -48,41 +48,41 @@ import ChatBot from '@/components/ai-chat-modal/ChatBot.vue'
       <!-- Nội dung chính scroll -->
       <main
         :class="showRight ? 'flex-1 max-h-[calc(100vh-96px)] overflow-y-auto' : 'flex-1 max-h-[calc(100vh-96px)] overflow-y-auto px-6'"
-        class="px-4"
-      > 
+        class="px-4">
         <div :class="[
           'fixed z-10 left-0 right-0 transition-all duration-300 ease-in-out',
-          showRight ? 'w-5/6' : 'w-full'
+          showRight ? '4xl:w-7/8 2xl:w-3/4 w-full' : 'w-full'
         ]">
           <CategoryBar :show-right="showRight" @toggle="toggleRight" />
         </div>
         <div class="h-[70px]"></div>
-        <CollectionBanner />
+        <div class="ml-10">
+          <CollectionBanner />
 
-        <!-- CollectionsStatsRight trên mobile -->
-        <div class="block md:hidden max-h-[30vh] py-4 overflow-y-auto">
-          <CollectionsStatsRight :show-right="showRight" @toggle="toggleRight" />
+          <!-- CollectionsStatsRight trên mobile -->
+          <div class="block md:hidden max-h-[30vh] py-2 overflow-y-auto" :class="showRight ? 'w-1/6' : 'w-full'">
+            <CollectionsStatsRight :show-right="showRight" @toggle="toggleRight" />
+          </div>
+
+          <!-- Nội dung chính scroll được -->
+          <div class="pl-5 md:pl-0 space-y-2">
+            <FeaturedCollection />
+            <FeaturedDrops />
+            <TrendingTokens />
+            <TopMoverToday />
+            <FeaturedTokens />
+            <TrendingCollections />
+            <HighestWeeklySales />
+            <Nft101 />
+          </div>
         </div>
 
-        <!-- Nội dung chính scroll được -->
-        <div class="pl-5 md:pl-0 space-y-2">
-          <FeaturedCollection />
-          <FeaturedDrops />
-          <TrendingTokens />
-          <TopMoverToday />
-          <FeaturedTokens />
-          <TrendingCollections />
-          <HighestWeeklySales />
-          <Nft101 />
-        </div>
       </main>
 
       <!-- Sidebar phải CollectionsStatsRight cố định sticky -->
       <transition name="slide-out" mode="out-in" :key="showRight">
-        <div
-          v-if="showRight"
-          class="hidden md:block sticky top-[96px] h-[calc(100vh-96px)] w-64 overflow-auto transition-all duration-500 ease-in-out"
-        >
+        <div v-if="showRight"
+          class="hidden md:block sticky top-[96px] h-[calc(100vh-96px)] w-90 overflow-auto transition-all duration-500 ease-in-out mr-20 z-10">
           <CollectionsStatsRight :show-right="showRight" @toggle="toggleRight" />
         </div>
       </transition>

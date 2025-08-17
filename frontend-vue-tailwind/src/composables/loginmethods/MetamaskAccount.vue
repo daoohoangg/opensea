@@ -32,7 +32,7 @@ async function registerWithMetaMask() {
     const signature = await signer.signMessage(message)
 
     // 4. Gửi đến backend
-    const response = await axios.post('http://localhost:8090/api/v1/auth/registrationbymetamask', {
+    const response = await axios.post(`http://${import.meta.env.VITE_BASE_URL}/v1/auth/registrationbymetamask`, {
       address,
       message,
       signature

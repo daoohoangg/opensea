@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full overflow-hidden bg-[#121212]">
+  <div class="relative w-full overflow-hidden bg-[#121212] rounded-xl">
     <!-- Main Banner -->
     <div class="w-full h-[400px] relative bg-[#121212]">
       <img

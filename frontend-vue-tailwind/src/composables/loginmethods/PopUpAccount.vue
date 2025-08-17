@@ -10,12 +10,11 @@
     leave-to-class="opacity-0"
   >
   <div class="min-h-scree px-4 fixed inset-0 bg-black/50 flex items-center justify-center z-50" @click.self="$emit('close')" >
-    <div class="w-full max-w-md bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-bold text-center mb-6">Welcome to OpenNFT</h2>
-
+    <div class="w-full max-w-md bg-[#2f2f33] p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-bold text-center mb-6 text-white">Welcome to OpenNFT</h2>
       <form @submit.prevent="handleLogin">
         <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700 mb-1">
+          <label class="block text-sm font-medium text-white mb-1">
             Email <span class="text-red-500">*</span>
           </label>
           <input
@@ -28,7 +27,7 @@
         </div>
 
         <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700 mb-1">
+          <label class="block text-sm font-medium text-white mb-1">
             Password <span class="text-red-500">*</span>
           </label>
           <div class="relative">
@@ -46,7 +45,7 @@
         </div>
 
         <div class="text-right mb-4">
-          <a href="#" class="text-sm text-blue-600 hover:underline">Forgot password?</a>
+          <a href="#" class="text-sm text-white hover:underline">Forgot password?</a>
         </div>
 
         <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
@@ -72,15 +71,11 @@
         <MetamaskAccount />
       </div>
 
-      <p class="text-center text-sm mt-6">
-        New to OPENNFT? <a href="#" class="text-blue-600 hover:underline">Sign up</a>
+      <p class="text-center text-sm mt-6 text-white">
+        New to OPENNFT? <a href="#" class="text-blue-500 hover:underline font-bold">Sign up</a>
       </p>
 
-      <p class="text-center text-sm mt-2">
-        <a href="#" class="text-blue-600 hover:underline">Log in with your organization</a>
-      </p>
-
-      <p class="text-xs text-gray-400 text-center mt-4">
+      <p class="text-xs text-white text-center mt-4">
         This site is protected by reCAPTCHA Enterprise and the Google
         <a href="#" class="underline">Privacy Policy</a> and
         <a href="#" class="underline">Terms of Service</a> apply.

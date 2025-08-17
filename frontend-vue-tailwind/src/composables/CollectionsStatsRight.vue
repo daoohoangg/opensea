@@ -2,7 +2,7 @@
   <div class="flex justify-end h-screen">
     <div class=" bg-[#131313] p-4 w-full max-w text-white">
       <!-- Header -->
-      <div class="flex items-start justify-between">
+      <div class="flex items-start justify-between sticky top-0 bg-[#131313] ">
         <div class="flex space-x-2">
           <button class="bg-[#2A2A2A] text-white text-s px-2 py-1 rounded font-medium">Top</button>
           <button class="text-gray-400 text-s px-2 py-1 rounded hover:bg-[#2A2A2A]">Trending</button>
